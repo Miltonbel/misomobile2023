@@ -1,4 +1,4 @@
-package com.example.vinyls.ui.slideshow
+package com.example.vinyls.album
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.vinyls.databinding.FragmentSlideshowBinding
+import com.example.vinyls.databinding.FragmentAlbumBinding
 
-class SlideshowFragment : Fragment() {
+class AlbumFragment : Fragment() {
 
-    private var _binding: FragmentSlideshowBinding? = null
+    private var _binding: FragmentAlbumBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -22,14 +22,14 @@ class SlideshowFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val slideshowViewModel =
-            ViewModelProvider(this).get(SlideshowViewModel::class.java)
+        val albumViewModel =
+            ViewModelProvider(this).get(AlbumViewModel::class.java)
 
-        _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
+        _binding = FragmentAlbumBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textSlideshow
-        slideshowViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.textAlbum
+        albumViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root

@@ -1,10 +1,10 @@
-package com.example.vinyls.ui.slideshow
+package com.example.vinyls.artist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SlideshowViewModel : ViewModel() {
+class ArtistViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is slideshow Fragment"
