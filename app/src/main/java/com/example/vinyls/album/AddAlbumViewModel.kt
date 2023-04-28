@@ -1,13 +1,12 @@
-package com.example.vinyls.artist
+package com.example.vinyls.album
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class ArtistViewModel : ViewModel() {
-
+class AddAlbumViewModel : ViewModel() {
     private val _text = MutableLiveData<String>().apply {
-        value = "This is artist Fragment"
+        value = "This is add album Fragment"
     }
     val text: LiveData<String> = _text
 }
