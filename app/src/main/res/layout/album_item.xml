@@ -26,16 +26,39 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView6"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{album.name}" />
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{album.description}" />
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/image_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitCenter"
+                        android:src="@{album.cover}" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:padding="10dp"
+                        android:background="#4D000000">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{album.name}"
+                            android:layout_centerHorizontal="true"
+                            android:textColor = "#FFFFFF"
+                            android:textSize="20sp"
+                            android:layout_centerVertical="true" />
+
+                    </RelativeLayout>
+
+                </FrameLayout>
+
+
+
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

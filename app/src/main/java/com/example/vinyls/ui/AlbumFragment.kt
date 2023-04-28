@@ -30,9 +30,12 @@ class AlbumFragment : Fragment() {
     ): View? {
         _binding = AlbumFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
+
         viewModelAdapter = AlbumsAdapter()
         return view
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView = binding.albumsRv
