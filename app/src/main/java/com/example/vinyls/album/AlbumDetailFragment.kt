@@ -46,7 +46,6 @@ class AlbumDetailFragment : Fragment() {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
-        //activity.actionBar?.title = getString(R.string.title_albums)
         val args: AlbumDetailFragmentArgs by navArgs()
         viewModel = ViewModelProvider(this, AlbumDetailViewModel.Factory(activity.application, args.albumId)).get(
             AlbumDetailViewModel::class.java)
