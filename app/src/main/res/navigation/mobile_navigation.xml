@@ -3,23 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_add_album">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.vinyls.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_add_album"
+        android:name="com.example.vinyls.album.AddAlbumFragment"
+        android:label="@string/add_album"
+        tools:layout="@layout/fragment_add_album" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.vinyls.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_add_artist"
+        android:name="com.example.vinyls.artist.AddArtistFragment"
+        android:label="@string/add_artist"
+        tools:layout="@layout/fragment_add_artist" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.vinyls.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_add_album_tracks"
+        android:name="com.example.vinyls.album.AddAlbumTracksFragment"
+        android:label="@string/add_album_tracks"
+        tools:layout="@layout/fragment_add_album_tracks" />
+
+    <fragment
+        android:id="@+id/nav_add_album_to_artist"
+        android:name="com.example.vinyls.artist.AddAlbumToArtistFragment"
+        android:label="@string/add_album_to_artist"
+        tools:layout="@layout/fragment_add_album_to_artist" />
+
+    <fragment
+        android:id="@+id/nav_list_album"
+        android:name="com.example.vinyls.album.AlbumFragment"
+        android:label="@string/albums_list"
+        tools:layout="@layout/fragment_album" />
+
+    <fragment
+        android:id="@+id/nav_list_artist"
+        android:name="com.example.vinyls.artist.ArtistFragment"
+        android:label="@string/artist_list"
+        tools:layout="@layout/fragment_artist" />
 </navigation>
