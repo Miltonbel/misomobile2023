@@ -1,4 +1,4 @@
-package com.example.vinyls.ui.adapters
+package com.example.vinyls.model
 
 import android.graphics.Bitmap
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinyls.R
 import com.example.vinyls.databinding.AlbumDetailItemBinding
-import com.example.vinyls.model.AlbumDetail
 
 
 class AlbumDetailAdapter : RecyclerView.Adapter<AlbumDetailAdapter.AlbumDetailViewHolder>(){
@@ -25,8 +24,6 @@ class AlbumDetailAdapter : RecyclerView.Adapter<AlbumDetailAdapter.AlbumDetailVi
             AlbumDetailViewHolder.LAYOUT,
             parent,
             false)
-
-
         return AlbumDetailViewHolder(withDataBinding)
     }
 
@@ -35,17 +32,14 @@ class AlbumDetailAdapter : RecyclerView.Adapter<AlbumDetailAdapter.AlbumDetailVi
             it.albumDetail = album[position]
         }
         holder.viewDataBinding.root.setOnClickListener {
-
         }
     }
 
     fun resizeImage(image: Bitmap, maxWidth: Int, maxHeight: Int): Bitmap {
         var width = image.width
         var height = image.height
-
         val ratioBitmap = width.toFloat() / height.toFloat()
         val ratioMax = maxWidth.toFloat() / maxHeight.toFloat()
-
         var finalWidth = maxWidth
         var finalHeight = maxHeight
 

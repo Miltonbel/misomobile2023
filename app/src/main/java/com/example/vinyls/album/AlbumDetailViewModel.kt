@@ -1,4 +1,4 @@
-package com.example.vinyls.viewmodels
+package com.example.vinyls.album
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

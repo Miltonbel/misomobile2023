@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinyls.databinding.AlbumDetailFragmentBinding
 import com.example.vinyls.model.AlbumDetail
-import com.example.vinyls.ui.adapters.AlbumDetailAdapter
-import com.example.vinyls.viewmodels.AlbumDetailViewModel
+import com.example.vinyls.model.AlbumDetailAdapter
 
 
 class AlbumDetailFragment : Fragment() {
@@ -36,17 +35,11 @@ class AlbumDetailFragment : Fragment() {
         return view
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView = binding.albumDetailRv
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = viewModelAdapter
     }
-    //val activity = requireNotNull(this.activity) {
-    //   "You can only access the viewModel after onActivityCreated()"
-    //}
-    //activity.actionBar?.title = getString(R.string.title_albums)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
