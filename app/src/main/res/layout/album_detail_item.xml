@@ -61,19 +61,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.454"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+            app:layout_constraintTop_toBottomOf="@+id/image_view" />
 
         <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
+            android:id="@+id/image_view"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="32dp"
+            android:background="@xml/circle"
+            android:scaleType="centerCrop"
+            android:src="@{album_detail.cover}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars"
-            android:scaleType="fitCenter"
-            android:src="@{album_detail.cover}"/>
+            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/textView4"
@@ -82,7 +83,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="60dp"
             android:text="@{album_detail.name}"
-            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintStart_toEndOf="@+id/image_view"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -92,7 +93,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="@{album_detail.genre}"
-            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintStart_toEndOf="@+id/image_view"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <TextView
@@ -102,7 +103,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="@{album_detail.releaseDate}"
-            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintStart_toEndOf="@+id/image_view"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

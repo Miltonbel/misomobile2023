@@ -2,8 +2,6 @@ package com.example.vinyls.model.network
 
 import android.content.Context
 import android.util.Log
-import org.json.JSONArray
-import org.json.JSONObject
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -13,6 +11,8 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.vinyls.model.AlbumDBDao
 import com.example.vinyls.model.AlbumDetail
+import org.json.JSONArray
+import org.json.JSONObject
 
 class NetworkServiceAdapter constructor(context: Context) {
     companion object{
@@ -54,7 +54,9 @@ class NetworkServiceAdapter constructor(context: Context) {
 
                 item = resp
                 Log.d("Response", item.toString())
-                list.add(0, AlbumDetail(albumId = item.getInt("id"),name = item.getString("name"), cover = item.getString("cover"), recordLabel = item.getString("recordLabel"), releaseDate = item.getString("releaseDate"), genre = item.getString("genre"), description = item.getString("description")))
+                val fechaCompleta = item.getString("releaseDate")
+                val fecha = fechaCompleta.substring(0, 10)
+                list.add(0, AlbumDetail(albumId = item.getInt("id"),name = item.getString("name"), cover = item.getString("cover"), recordLabel = item.getString("recordLabel"), releaseDate = fecha, genre = item.getString("genre"), description = item.getString("description")))
 
                 onComplete(list)
             },

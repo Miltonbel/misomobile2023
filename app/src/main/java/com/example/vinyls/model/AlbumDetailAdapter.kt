@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinyls.R
 import com.example.vinyls.databinding.AlbumDetailItemBinding
+import com.squareup.picasso.Picasso
 
 
 class AlbumDetailAdapter : RecyclerView.Adapter<AlbumDetailAdapter.AlbumDetailViewHolder>(){
@@ -30,6 +31,9 @@ class AlbumDetailAdapter : RecyclerView.Adapter<AlbumDetailAdapter.AlbumDetailVi
     override fun onBindViewHolder(holder: AlbumDetailViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.albumDetail = album[position]
+            Picasso.get().load(album[position].cover).resize(450, 450)
+                .into(it.imageView)
+            it.imageView.clipToOutline = true
         }
         holder.viewDataBinding.root.setOnClickListener {
         }
