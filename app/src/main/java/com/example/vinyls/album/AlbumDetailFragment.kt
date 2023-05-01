@@ -15,7 +15,6 @@ import com.example.vinyls.databinding.AlbumDetailFragmentBinding
 import com.example.vinyls.model.AlbumDetail
 import com.example.vinyls.model.AlbumDetailAdapter
 
-
 class AlbumDetailFragment : Fragment() {
 
     private var _binding: AlbumDetailFragmentBinding? = null
@@ -27,7 +26,7 @@ class AlbumDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = AlbumDetailFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
 
