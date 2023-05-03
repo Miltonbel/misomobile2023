@@ -29,9 +29,9 @@ class AddAlbumFragment : Fragment() {
         val root: View = binding.root
 
         val textView: TextView = binding.textAddAlbum
-        addAlbumViewModel.text.observe(viewLifecycleOwner) {
+        /*addAlbumViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
-        }
+        }*/
         return root
     }
 
