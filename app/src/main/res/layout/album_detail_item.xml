@@ -15,9 +15,9 @@
             android:id="@+id/linearLayout2"
             android:layout_width="0dp"
             android:layout_height="3dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:background="#757373"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,15 +33,16 @@
             android:text="Canciones"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:justificationMode="inter_word"
             android:text="@{album_detail.description}"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,9 +54,9 @@
             android:id="@+id/linearLayout1"
             android:layout_width="0dp"
             android:layout_height="3dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:background="#757373"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +69,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:background="@xml/circle"
             android:scaleType="centerCrop"
             android:src="@{album_detail.cover}"
@@ -84,7 +85,8 @@
             android:layout_marginTop="60dp"
             android:text="@{album_detail.name}"
             app:layout_constraintStart_toEndOf="@+id/image_view"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/textView5"
@@ -92,9 +94,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="@{album_detail.genre}"
+            android:text='@{album_detail.genre + " | " + album_detail.recordLabel}'
             app:layout_constraintStart_toEndOf="@+id/image_view"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/textView6"
@@ -104,7 +107,8 @@
             android:layout_marginTop="8dp"
             android:text="@{album_detail.releaseDate}"
             app:layout_constraintStart_toEndOf="@+id/image_view"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            android:textStyle="bold"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
