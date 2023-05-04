@@ -11,12 +11,13 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.vinyls.model.AlbumDBDao
 import com.example.vinyls.model.AlbumDetail
+import com.example.vinyls.model.Track
 import org.json.JSONArray
 import org.json.JSONObject
 
 class NetworkServiceAdapter constructor(context: Context) {
     companion object{
-        const val BASE_URL= "http://10.0.2.2:3000/"
+        const val BASE_URL= "http://35.209.15.30/"
         var instance: NetworkServiceAdapter? = null
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
@@ -57,7 +58,28 @@ class NetworkServiceAdapter constructor(context: Context) {
                 val fechaCompleta = item.getString("releaseDate")
                 val fecha = fechaCompleta.substring(0, 10)
 
-                list.add(0, AlbumDetail(albumId = item.getInt("id"),name = item.getString("name"), cover = item.getString("cover"), recordLabel = item.getString("recordLabel"), releaseDate = fecha, genre = item.getString("genre"), description = item.getString("description")))
+                val tracks = mutableListOf<Track>()
+                val trackKeys = item.getJSONObject("tracks").keys()
+                while (trackKeys.hasNext()) {
+                    val key = trackKeys.next() as String
+                    val track = item.getJSONObject("tracks").getJSONObject(key)
+                    tracks.add(Track(
+                        trackId = item.getInt("id"),
+                        name = track.getString("name"),
+                        duration = track.getString("duration")
+                    ))
+                }
+
+                list.add(0, AlbumDetail(
+                    albumId = item.getInt("id"),
+                    name = item.getString("name"),
+                    cover = item.getString("cover"),
+                    recordLabel = item.getString("recordLabel"),
+                    releaseDate = fecha,
+                    genre = item.getString("genre"),
+                    description = item.getString("description"),
+                    tracks = tracks
+                ))
 
                 onComplete(list)
             },

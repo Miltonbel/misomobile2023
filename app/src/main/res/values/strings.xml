@@ -13,4 +13,5 @@
     <string name="add_album_to_artist">Agregar album a artista</string>
     <string name="artist_list">Artistas</string>
     <string name="albums_list">Albumes</string>
+    <string name="songs">Canciones</string>
 </resources>
