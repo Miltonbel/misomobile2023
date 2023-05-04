@@ -16,7 +16,7 @@ import org.json.JSONObject
 
 class NetworkServiceAdapter constructor(context: Context) {
     companion object{
-        const val BASE_URL= "http://34.71.211.68/"
+        const val BASE_URL= "http://10.0.2.2:3000/"
         var instance: NetworkServiceAdapter? = null
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
@@ -26,7 +26,6 @@ class NetworkServiceAdapter constructor(context: Context) {
             }
     }
     private val requestQueue: RequestQueue by lazy {
-        // applicationContext keeps you from leaking the Activity or BroadcastReceiver if someone passes one in.
         Volley.newRequestQueue(context.applicationContext)
     }
     fun getAlbums(onComplete:(resp:List<AlbumDBDao>)->Unit, onError: (error:VolleyError)->Unit){
@@ -54,8 +53,10 @@ class NetworkServiceAdapter constructor(context: Context) {
 
                 item = resp
                 Log.d("Response", item.toString())
+
                 val fechaCompleta = item.getString("releaseDate")
                 val fecha = fechaCompleta.substring(0, 10)
+
                 list.add(0, AlbumDetail(albumId = item.getInt("id"),name = item.getString("name"), cover = item.getString("cover"), recordLabel = item.getString("recordLabel"), releaseDate = fecha, genre = item.getString("genre"), description = item.getString("description")))
 
                 onComplete(list)
