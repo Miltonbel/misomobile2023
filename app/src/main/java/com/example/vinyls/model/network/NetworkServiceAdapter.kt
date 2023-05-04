@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.vinyls.model.AlbumDBDao
+import com.example.vinyls.model.Artist
 
 class NetworkServiceAdapter constructor(context: Context) {
     companion object{
@@ -39,6 +40,22 @@ class NetworkServiceAdapter constructor(context: Context) {
                 onComplete(list)
             },
             Response.ErrorListener {
+                onError(it)
+            }))
+    }
+
+    fun getArtists(onComplete:(resp:List<Artist>)->Unit, onError: (error:VolleyError)->Unit){
+        requestQueue.add(getRequest("bands",
+            { response ->
+                val resp = JSONArray(response)
+                val list = mutableListOf<Artist>()
+                for (i in 0 until resp.length()) {
+                    val item = resp.getJSONObject(i)
+                    list.add(i, Artist(artistId = item.getInt("id"),name = item.getString("name"), image = item.getString("cover"), creationDate = item.getString("releaseDate"), description = item.getString("description")))
+                }
+                onComplete(list)
+            },
+            {
                 onError(it)
             }))
     }
