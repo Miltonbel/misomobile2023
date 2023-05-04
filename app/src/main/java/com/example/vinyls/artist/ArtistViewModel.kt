@@ -11,10 +11,10 @@ import com.example.vinyls.model.ArtistRepository
 
 class ArtistViewModel(application: Application) :  AndroidViewModel(application) {
 
-    private val _albums = MutableLiveData<List<Artist>>()
+    private val _artists = MutableLiveData<List<Artist>>()
 
-    val albums: LiveData<List<Artist>>
-        get() = _albums
+    val artists: LiveData<List<Artist>>
+        get() = _artists
 
     private var _eventNetworkError = MutableLiveData<Boolean>(false)
 
@@ -25,14 +25,14 @@ class ArtistViewModel(application: Application) :  AndroidViewModel(application)
 
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
-    private val albumRepository = ArtistRepository(application)
+    private val artistRepository = ArtistRepository(application)
     init {
         refreshDataFromNetwork()
     }
 
     private fun refreshDataFromNetwork() {
-        albumRepository.refreshData({
-            _albums.postValue(it)
+        artistRepository.refreshData({
+            _artists.postValue(it)
             _eventNetworkError.value = false
             _isNetworkErrorShown.value = false
         },{

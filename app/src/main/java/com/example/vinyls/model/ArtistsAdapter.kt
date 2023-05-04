@@ -7,6 +7,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinyls.R
+import com.example.vinyls.databinding.ArtistItemBinding
 import com.squareup.picasso.Picasso
 
 class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>(){
@@ -23,15 +24,12 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>(){
             ArtistViewHolder.LAYOUT,
             parent,
             false)
-
-
         return ArtistViewHolder(withDataBinding)
     }
 
     override fun onBindViewHolder(holder: ArtistViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.artist = artists[position]
-            //ImageView imageView = findViewById(R.id.imageView);
             Picasso.get().load(artists[position].image).resize(1000, 1000)
                 .into(it.imageView);
         }
