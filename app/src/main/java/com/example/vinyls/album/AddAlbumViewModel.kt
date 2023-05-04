@@ -26,17 +26,9 @@ class AddAlbumViewModel(application: Application) : AndroidViewModel(application
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
     private val albumRepository = AlbumRepository(application)
-    init {
-        createNewAlbum()
-    }
+    init {}
 
-    private fun createNewAlbum(){
-        val body = JSONObject(mapOf("name" to "Buscando América",
-            "cover" to "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg",
-            "releaseDate" to "1984-08-01T00:00:00-05:00",
-            "description" to "some description",
-            "genre" to "Salsa",
-            "recordLabel" to "Elektra"))
+     fun createNewAlbum(body:JSONObject){
         albumRepository.createAlbum({},{},body)
     }
 }

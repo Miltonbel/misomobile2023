@@ -13,4 +13,14 @@
     <string name="add_album_to_artist">Agregar album a artista</string>
     <string name="artist_list">Artistas</string>
     <string name="albums_list">Albumes</string>
+
+    <!-- FORMS -->
+    <string name="new_album_title">Vinilos app, crea un nuevo Album</string>
+    <string name="new_album_name">Nombre</string>
+    <string name="new_album_genre">Genero</string>
+    <string name="new_album_cover">Portada</string>
+    <string name="new_album_release">Fecha de lanzamiento</string>
+    <string name="new_album_label">Etiqueta</string>
+    <string name="new_album_description">Descripción</string>
+
 </resources>
