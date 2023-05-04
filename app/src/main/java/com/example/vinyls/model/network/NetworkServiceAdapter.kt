@@ -51,7 +51,7 @@ class NetworkServiceAdapter constructor(context: Context) {
                 val list = mutableListOf<Artist>()
                 for (i in 0 until resp.length()) {
                     val item = resp.getJSONObject(i)
-                    list.add(i, Artist(artistId = item.getInt("id"),name = item.getString("name"), image = item.getString("cover"), creationDate = item.getString("releaseDate"), description = item.getString("description")))
+                    list.add(i, Artist(artistId = item.getInt("id"),name = item.getString("name"), image = item.getString("image"), creationDate = item.getString("creationDate"), description = item.getString("description")))
                 }
                 onComplete(list)
             },
