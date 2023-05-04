@@ -1,6 +1,5 @@
 package com.example.vinyls.model
 
-import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -35,31 +34,9 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>(){
         }
     }
 
-    fun resizeImage(image: Bitmap, maxWidth: Int, maxHeight: Int): Bitmap {
-        var width = image.width
-        var height = image.height
-
-        val ratioBitmap = width.toFloat() / height.toFloat()
-        val ratioMax = maxWidth.toFloat() / maxHeight.toFloat()
-
-        var finalWidth = maxWidth
-        var finalHeight = maxHeight
-
-        if (ratioMax > ratioBitmap) {
-            finalWidth = (maxHeight.toFloat() * ratioBitmap).toInt()
-        } else {
-            finalHeight = (maxWidth.toFloat() / ratioBitmap).toInt()
-        }
-
-        val resizedBitmap = Bitmap.createScaledBitmap(image, finalWidth, finalHeight, true)
-
-        return resizedBitmap
-    }
-
     override fun getItemCount(): Int {
         return artists.size
     }
-
 
     class ArtistViewHolder(val viewDataBinding: ArtistItemBinding) :
         RecyclerView.ViewHolder(viewDataBinding.root) {
