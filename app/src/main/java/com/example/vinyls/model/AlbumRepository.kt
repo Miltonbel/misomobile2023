@@ -15,10 +15,17 @@ class AlbumRepository (val application: Application){
     }
 
     fun addTrackToAlbum(albumId:Int,body:JSONObject, callback: (Any)->Unit, onError: (VolleyError)->Unit){
-        NetworkServiceAdapter.getInstance(application).postTracksToAlbum(albumId,
-            {
+        NetworkServiceAdapter.getInstance(application).postTracksToAlbum(albumId,{
                 callback(it)
             },
+            onError,
+            body
+        )
+    }
+    fun createAlbum(callback: (AlbumDBDao)->Unit, onError: (VolleyError)->Unit, body: JSONObject) {
+        NetworkServiceAdapter.getInstance(application).postAlbum({
+            callback(it)
+        },
             onError,
             body
         )
