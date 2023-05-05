@@ -11,10 +11,13 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.vinyls.model.AlbumDBDao
+import com.google.gson.Gson
+import java.math.BigDecimal
+import java.util.Objects
 
 class NetworkServiceAdapter constructor(context: Context) {
     companion object{
-        const val BASE_URL= "http://35.209.15.30/"
+        const val BASE_URL= "http://10.0.2.2/"
         var instance: NetworkServiceAdapter? = null
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
@@ -39,6 +42,17 @@ class NetworkServiceAdapter constructor(context: Context) {
                 onComplete(list)
             },
             Response.ErrorListener {
+                onError(it)
+            }))
+    }
+    fun postTracksToAlbum(albumId:Int, onComplete: (Any) -> Unit, onError: (error:VolleyError) -> Unit, body:JSONObject){
+        requestQueue.add(postRequest(String.format("albums/%s/tracks",albumId),
+            body,
+            { response ->
+                val addedResponse = Gson().fromJson(response.toString(), Any::class.java)
+                onComplete(addedResponse)
+            },
+            {
                 onError(it)
             }))
     }

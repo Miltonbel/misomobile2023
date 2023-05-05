@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.vinyls.model.AlbumDBDao
 import com.example.vinyls.model.AlbumRepository
+import org.json.JSONObject
 
 class AlbumViewModel(application: Application) :  AndroidViewModel(application) {
 
@@ -27,6 +28,7 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
         get() = _isNetworkErrorShown
     private val albumRepository = AlbumRepository(application)
     init {
+        addTrackToAlbum()
         refreshDataFromNetwork()
     }
 
@@ -38,6 +40,11 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
         },{
             _eventNetworkError.value = true
         })
+    }
+
+    private fun addTrackToAlbum(){
+        val body = JSONObject(mapOf("name" to "Decisiones", "duration" to "5:05"))
+        albumRepository.addTrackToAlbum(1,body,{},{})
     }
 
     fun onNetworkErrorShown() {
