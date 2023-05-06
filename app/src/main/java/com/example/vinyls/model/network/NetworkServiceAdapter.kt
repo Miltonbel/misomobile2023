@@ -50,25 +50,23 @@ class NetworkServiceAdapter constructor(context: Context) {
             { response ->
                 val resp = JSONObject(response)
                 val list = mutableListOf<AlbumDetail>()
-                var item:JSONObject? = null
+                val item: JSONObject = resp
 
-                item = resp
-                Log.d("Response", item.toString())
+                val tracksArray = item.getJSONArray("tracks")
+                val tracks = mutableListOf<Track>()
+
+                for (i in 0 until tracksArray.length()) {
+                    val trackObject = tracksArray.getJSONObject(i)
+                    val track = Track(
+                        trackId = trackObject.getInt("id"),
+                        name = trackObject.getString("name"),
+                        duration = trackObject.getString("duration")
+                    )
+                    tracks.add(track)
+                }
 
                 val fechaCompleta = item.getString("releaseDate")
                 val fecha = fechaCompleta.substring(0, 10)
-
-                val tracks = mutableListOf<Track>()
-                val trackKeys = item.getJSONObject("tracks").keys()
-                while (trackKeys.hasNext()) {
-                    val key = trackKeys.next() as String
-                    val track = item.getJSONObject("tracks").getJSONObject(key)
-                    tracks.add(Track(
-                        trackId = item.getInt("id"),
-                        name = track.getString("name"),
-                        duration = track.getString("duration")
-                    ))
-                }
 
                 list.add(0, AlbumDetail(
                     albumId = item.getInt("id"),
@@ -80,7 +78,6 @@ class NetworkServiceAdapter constructor(context: Context) {
                     description = item.getString("description"),
                     tracks = tracks
                 ))
-
                 onComplete(list)
             },
             {
