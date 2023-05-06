@@ -5,5 +5,5 @@ data class Artist (
     val name:String,
     val image:String,
     val description:String,
-    val creationDate:String
+    val birthDate:String
 )
