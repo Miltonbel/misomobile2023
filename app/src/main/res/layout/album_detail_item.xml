@@ -29,8 +29,9 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="35dp"
             android:text="@string/songs"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,6 +44,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
+            android:textSize="16sp"
             android:justificationMode="inter_word"
             android:text="@{album_detail.description}"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="3dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="8dp"
             android:background="#757373"
             android:orientation="horizontal"
@@ -66,9 +68,9 @@
 
         <ImageView
             android:id="@+id/image_view"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="40dp"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="24dp"
             android:background="@xml/circle"
             android:scaleType="centerCrop"
@@ -82,9 +84,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="70dp"
             android:text="@{album_detail.name}"
             android:textStyle="bold"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/image_view"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,6 +99,7 @@
             android:layout_marginTop="8dp"
             android:text='@{album_detail.genre + " | " + album_detail.recordLabel}'
             android:textStyle="bold"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/image_view"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -107,18 +111,20 @@
             android:layout_marginTop="8dp"
             android:text="@{album_detail.releaseDate}"
             android:textStyle="bold"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/image_view"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tracksRecyclerView"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
-            android:text="@{album_detail.tracks[0].name}"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
