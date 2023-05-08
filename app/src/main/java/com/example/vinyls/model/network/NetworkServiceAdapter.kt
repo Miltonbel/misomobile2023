@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.vinyls.model.AlbumDBDao
+import com.example.vinyls.model.Artist
 
 class NetworkServiceAdapter constructor(context: Context) {
     companion object{
@@ -24,12 +25,11 @@ class NetworkServiceAdapter constructor(context: Context) {
             }
     }
     private val requestQueue: RequestQueue by lazy {
-        // applicationContext keeps you from leaking the Activity or BroadcastReceiver if someone passes one in.
         Volley.newRequestQueue(context.applicationContext)
     }
     fun getAlbums(onComplete:(resp:List<AlbumDBDao>)->Unit, onError: (error:VolleyError)->Unit){
         requestQueue.add(getRequest("albums",
-            Response.Listener<String> { response ->
+            { response ->
                 val resp = JSONArray(response)
                 val list = mutableListOf<AlbumDBDao>()
                 for (i in 0 until resp.length()) {
@@ -38,7 +38,29 @@ class NetworkServiceAdapter constructor(context: Context) {
                 }
                 onComplete(list)
             },
-            Response.ErrorListener {
+            {
+                onError(it)
+            }))
+    }
+
+    fun getArtists(onComplete:(resp:List<Artist>)->Unit, onError: (error:VolleyError)->Unit){
+        requestQueue.add(getRequest("musicians",
+            { response ->
+                val resp = JSONArray(response)
+                val list = mutableListOf<Artist>()
+                for (i in 0 until resp.length()) {
+                    val item = resp.getJSONObject(i)
+                    list.add(i, Artist(
+                        artistId = item.getInt("id"),
+                        name = item.getString("name"),
+                        image = item.getString("image"),
+                        birthDate = item.getString("birthDate"),
+                        description = item.getString("description")
+                    ))
+                }
+                onComplete(list)
+            },
+            {
                 onError(it)
             }))
     }
