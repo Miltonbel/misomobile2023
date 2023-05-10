@@ -1,7 +1,6 @@
 package com.example.vinyls.model
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -9,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinyls.R
+import com.example.vinyls.album.AlbumFragmentDirections
 import com.example.vinyls.databinding.AlbumItemBinding
 import com.squareup.picasso.Picasso
 
@@ -26,8 +26,6 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>(){
             AlbumViewHolder.LAYOUT,
             parent,
             false)
-
-
         return AlbumViewHolder(withDataBinding)
     }
 
@@ -37,14 +35,11 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>(){
             //ImageView imageView = findViewById(R.id.imageView);
             Picasso.get().load(albums[position].cover).resize(1000, 1000)
                 .into(it.imageView);
-
-
-
         }
         holder.viewDataBinding.root.setOnClickListener {
-            //val action = AlbumFragmentDirections.actionAlbumFragmentToCommentFragment(albums[position].albumId)
+            val action = AlbumFragmentDirections.actionAlbumFragmentToAlbumDetailFragment(albums[position].albumId)
             // Navigate using that action
-            //holder.viewDataBinding.root.findNavController().navigate(action)
+            holder.viewDataBinding.root.findNavController().navigate(action)
         }
     }
 
@@ -81,6 +76,4 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>(){
             val LAYOUT = R.layout.album_item
         }
     }
-
-
 }
