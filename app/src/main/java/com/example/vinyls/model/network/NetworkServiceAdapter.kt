@@ -40,10 +40,24 @@ class NetworkServiceAdapter constructor(context: Context) {
         requestQueue.add(
             getRequest("albums",
                 { response ->
-                    val arrayAlbumDBDao: Array<AlbumDBDao> =
-                        Gson().fromJson(response, Array<AlbumDBDao>::class.java)
-                    onComplete(arrayAlbumDBDao.asList())
-
+                    val resp = JSONArray(response)
+                    val list = mutableListOf<AlbumDBDao>()
+                    for (i in 0 until resp.length()) {
+                        val item = resp.getJSONObject(i)
+                        list.add(
+                            i,
+                            AlbumDBDao(
+                                albumId = item.getInt("id"),
+                                name = item.getString("name"),
+                                cover = item.getString("cover"),
+                                recordLabel = item.getString("recordLabel"),
+                                releaseDate = item.getString("releaseDate"),
+                                genre = item.getString("genre"),
+                                description = item.getString("description")
+                            )
+                        )
+                    }
+                    onComplete(list)
                 },
                 {
                     onError(it)

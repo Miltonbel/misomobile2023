@@ -23,4 +23,19 @@
     <string name="new_album_label">Etiqueta</string>
     <string name="new_album_description">Descripción</string>
 
+    <string-array name="genres">
+        <item>Classical</item>
+        <item>Salsa</item>
+        <item>Rock</item>
+        <item>Folk</item>
+    </string-array>
+
+    <string-array name="labels">
+        <item>Sony Music</item>
+        <item>EMI</item>
+        <item>Discos Fuentes</item>
+        <item>Elektra</item>
+        <item>Fania Records</item>
+    </string-array>
+
 </resources>
