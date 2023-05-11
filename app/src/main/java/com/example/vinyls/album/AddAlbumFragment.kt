@@ -45,18 +45,15 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
             createDatePicker()
         }
         binding.newAlbumButton.setOnClickListener {
-            createAlbumAction({ newAlbumId: Int ->
-                findNavController().navigate(
-                    AddAlbumFragmentDirections.actionNavAddAlbumToAlbumDetailFragment(newAlbumId)
-                )
-            },{})
-
-            clearForm()
+            if(checkValidForm()){
+                createAlbumAction({ newAlbumId: Int ->
+                    findNavController().navigate(
+                        AddAlbumFragmentDirections.actionNavAddAlbumToAlbumDetailFragment(newAlbumId)
+                    )
+                },{})
+                clearForm()
+            }
         }
-        //val textView: TextView = binding.textAddAlbum
-        /*addAlbumViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }*/
         return root
     }
 
@@ -107,6 +104,28 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+    private fun checkValidForm(): Boolean {
+        var isValid = true
+        if(binding.newAlbumName.text.toString().isEmpty()){
+            binding.newAlbumName.error = "Ingrese el nombre del album"
+            isValid = false
+        }
+        if(binding.newAlbumCover.text.toString().isEmpty()){
+            binding.newAlbumCover.error = "Ingrese la imagen de la portada del album"
+            isValid = false
+        }
+        if(binding.newAlbumRelease.text.toString().isEmpty()){
+            binding.newAlbumRelease.error = "Ingrese la fecha de lanzamiento del album"
+            isValid = false
+        }
+        if(binding.newAlbumDescription.text.toString().isEmpty()){
+            binding.newAlbumDescription.error = "ingrese una descripción para el album"
+            isValid = false
+        }
+
+        return isValid
+    }
 
     private fun createAlbumAction(navigate: (Int) -> Unit, error:()->Unit){
         val newAlbum = buildCreateBody()

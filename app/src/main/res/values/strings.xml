@@ -15,7 +15,7 @@
     <string name="albums_list">Albumes</string>
 
     <!-- FORMS -->
-    <string name="new_album_title">Vinilos app, crea un nuevo Album</string>
+    <string name="new_album_title">Vinilos app crea \n un nuevo Album</string>
     <string name="new_album_name">Nombre</string>
     <string name="new_album_genre">Genero</string>
     <string name="new_album_cover">Portada</string>
