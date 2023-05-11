@@ -4,11 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.vinyls.model.AlbumDBDao
 import com.example.vinyls.model.AlbumRepository
 import org.json.JSONObject
-import java.lang.Appendable
 
 class AddAlbumViewModel(application: Application) : AndroidViewModel(application) {
     private val _album = MutableLiveData<AlbumDBDao>()
@@ -28,7 +26,12 @@ class AddAlbumViewModel(application: Application) : AndroidViewModel(application
     private val albumRepository = AlbumRepository(application)
     init {}
 
-     fun createNewAlbum(body:JSONObject){
-        albumRepository.createAlbum({},{},body)
+     fun createNewAlbum(body:JSONObject, callback: (Int)-> Unit){
+         albumRepository.createAlbum(
+             {
+                 callback(it.id)
+             },
+             {},
+             body)
     }
 }

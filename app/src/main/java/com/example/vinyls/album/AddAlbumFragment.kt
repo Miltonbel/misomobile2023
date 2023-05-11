@@ -1,7 +1,5 @@
 package com.example.vinyls.album
 
-import android.annotation.SuppressLint
-import android.app.DatePickerDialog
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.SparseArray
@@ -11,15 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Spinner
-import android.widget.TextView
 import androidx.core.util.forEach
+import androidx.navigation.fragment.findNavController
 import com.example.vinyls.R
 import com.example.vinyls.databinding.FragmentAddAlbumBinding
 import org.json.JSONObject
-import java.util.Calendar
 
 class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
@@ -50,7 +45,13 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
             createDatePicker()
         }
         binding.newAlbumButton.setOnClickListener {
-            createAlbumAction()
+            createAlbumAction({ newAlbumId: Int ->
+                findNavController().navigate(
+                    AddAlbumFragmentDirections.actionNavAddAlbumToAlbumDetailFragment(newAlbumId)
+                )
+            },{})
+
+            clearForm()
         }
         //val textView: TextView = binding.textAddAlbum
         /*addAlbumViewModel.text.observe(viewLifecycleOwner) {
@@ -107,18 +108,28 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
 
-    private fun createAlbumAction(){
+    private fun createAlbumAction(navigate: (Int) -> Unit, error:()->Unit){
+        val newAlbum = buildCreateBody()
+        val addAlbumViewModel = ViewModelProvider(this).get(AddAlbumViewModel::class.java)
 
-        val newAlbum = JSONObject(mapOf("name" to binding.newAlbumName.text.toString(),
+        addAlbumViewModel.createNewAlbum(newAlbum, navigate)
+    }
+
+    private fun buildCreateBody():JSONObject{
+        return JSONObject(mapOf(
+            "name" to binding.newAlbumName.text.toString(),
             "cover" to binding.newAlbumCover.text.toString(),
             "releaseDate" to binding.newAlbumRelease.text.toString(),
             "description" to binding.newAlbumDescription.text.toString(),
             "genre" to genreSelected,
             "recordLabel" to labelSelected))
+    }
 
-        val addAlbumViewModel = ViewModelProvider(this).get(AddAlbumViewModel::class.java)
-
-        addAlbumViewModel.createNewAlbum(newAlbum)
+    private fun clearForm(){
+        binding.newAlbumName.setText("")
+        binding.newAlbumRelease.setText("")
+        binding.newAlbumCover.setText("")
+        binding.newAlbumDescription.setText("")
     }
 
 }

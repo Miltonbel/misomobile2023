@@ -55,7 +55,7 @@ class NetworkServiceAdapter constructor(context: Context) {
                         list.add(
                             i,
                             AlbumDBDao(
-                                albumId = item.getInt("id"),
+                                id = item.getInt("id"),
                                 name = item.getString("name"),
                                 cover = item.getString("cover"),
                                 recordLabel = item.getString("recordLabel"),
