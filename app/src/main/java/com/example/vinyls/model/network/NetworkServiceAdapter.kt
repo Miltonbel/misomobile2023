@@ -19,6 +19,7 @@ import com.example.vinyls.model.Artist
 import org.json.JSONArray
 
 import com.example.vinyls.model.AlbumDetail
+import com.example.vinyls.model.ArtistDetail
 import com.example.vinyls.model.Track
 
 
@@ -119,6 +120,46 @@ class NetworkServiceAdapter constructor(context: Context) {
                     onError(it)
                 })
         )
+    }
+
+    fun getArtistDetail(artistId:Int, onComplete:(resp:List<ArtistDetail>)->Unit, onError: (error:VolleyError)->Unit){
+        requestQueue.add(getRequest("musicians/$artistId",
+            { response ->
+                val resp = JSONObject(response)
+                val list = mutableListOf<ArtistDetail>()
+                val item: JSONObject = resp
+
+                val albumsArray = item.getJSONArray("albums")
+                val albums = mutableListOf<AlbumDBDao>()
+                for (i in 0 until albumsArray.length()) {
+                    val trackObject = albumsArray.getJSONObject(i)
+                    val track = AlbumDBDao(
+                        albumId = trackObject.getInt("id"),
+                        name = trackObject.getString("name"),
+                        cover = trackObject.getString("cover"),
+                        recordLabel = item.getString("name"),
+                        releaseDate = item.getString("name"),
+                        genre = item.getString("name"),
+                        description = item.getString("description"))
+                    albums.add(track)
+                }
+
+                val fullDate = item.getString("birthDate")
+                val shortDate = fullDate.substring(0, 10)
+
+                list.add(0, ArtistDetail(
+                    artistId = item.getInt("id"),
+                    name = item.getString("name"),
+                    image = item.getString("image"),
+                    birthDate = shortDate,
+                    description = item.getString("description"),
+                    albums = albums
+                ))
+                onComplete(list)
+            },
+            {
+                onError(it)
+            }))
     }
 
     fun getAlbumDetail(albumId:Int, onComplete:(resp:List<AlbumDetail>)->Unit, onError: (error:VolleyError)->Unit){

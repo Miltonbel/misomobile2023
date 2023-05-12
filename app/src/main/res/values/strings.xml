@@ -40,5 +40,6 @@
 
 
     <string name="songs">Canciones</string>
-
+    <string name="artist_detail_albums">Albumes</string>
+    <string name="detail_artist">Detalle artista</string>
 </resources>
