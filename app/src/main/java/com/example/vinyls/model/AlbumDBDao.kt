@@ -1,7 +1,7 @@
 package com.example.vinyls.model
 
 data class AlbumDBDao (
-    val albumId:Int,
+    val id:Int,
     val name:String,
     val cover:String,
     val releaseDate:String,
