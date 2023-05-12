@@ -4,8 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinyls.R
+import com.example.vinyls.album.AlbumFragmentDirections
+import com.example.vinyls.artist.ArtistFragmentDirections
 import com.example.vinyls.databinding.ArtistItemBinding
 import com.squareup.picasso.Picasso
 
@@ -31,6 +34,11 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>(){
             it.artist = artists[position]
             Picasso.get().load(artists[position].image).resize(1000, 1000)
                 .into(it.imageView);
+        }
+        holder.viewDataBinding.root.setOnClickListener {
+            val action = ArtistFragmentDirections.actionArtistFragmentToArtistDetailFragment(artists[position].artistId)
+            // Navigate using that action
+            holder.viewDataBinding.root.findNavController().navigate(action)
         }
     }
 
