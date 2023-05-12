@@ -21,7 +21,9 @@ import org.json.JSONArray
 import com.example.vinyls.model.AlbumDetail
 import com.example.vinyls.model.ArtistDetail
 import com.example.vinyls.model.Track
-
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 
 class NetworkServiceAdapter constructor(context: Context) {
@@ -42,12 +44,11 @@ class NetworkServiceAdapter constructor(context: Context) {
         Volley.newRequestQueue(context.applicationContext)
     }
 
-    fun getAlbums(
-        onComplete: (resp: List<AlbumDBDao>) -> Unit,
-        onError: (error: VolleyError) -> Unit
-    ) {
+    suspend fun getAlbums() = suspendCoroutine<List<AlbumDBDao>>{ cont->
+        val list = mutableListOf<AlbumDBDao>()
         requestQueue.add(
             getRequest("albums",
+                Response.Listener<String>
                 { response ->
                     val resp = JSONArray(response)
                     val list = mutableListOf<AlbumDBDao>()
@@ -66,14 +67,13 @@ class NetworkServiceAdapter constructor(context: Context) {
                             )
                         )
                     }
-                    onComplete(list)
+                    cont.resume(list)
                 },
-                {
-                    onError(it)
-                })
-        )
-    }
 
+                  Response.ErrorListener{
+                      cont.resumeWithException(it)
+                  }))
+    }
     fun postAlbum(
         onComplete: (AlbumDBDao) -> Unit,
         onError: (error: VolleyError) -> Unit,
