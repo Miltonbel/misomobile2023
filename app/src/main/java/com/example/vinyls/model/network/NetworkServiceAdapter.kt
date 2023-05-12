@@ -28,7 +28,7 @@ class NetworkServiceAdapter constructor(context: Context) {
 
 
     companion object {
-        const val BASE_URL = "http://10.0.2.2/"
+        const val BASE_URL = "http://35.209.15.30/"
         var instance: NetworkServiceAdapter? = null
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
@@ -134,7 +134,7 @@ class NetworkServiceAdapter constructor(context: Context) {
                 for (i in 0 until albumsArray.length()) {
                     val trackObject = albumsArray.getJSONObject(i)
                     val track = AlbumDBDao(
-                        albumId = trackObject.getInt("id"),
+                        id = trackObject.getInt("id"),
                         name = trackObject.getString("name"),
                         cover = trackObject.getString("cover"),
                         recordLabel = item.getString("name"),
