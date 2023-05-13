@@ -30,19 +30,23 @@ class AddAlbumViewModel(application: Application) : AndroidViewModel(application
     private val albumRepository = AlbumRepository(application)
     init {}
 
-    fun createNewAlbum(body: JSONObject){
-        try {
-            viewModelScope.launch(Dispatchers.Default){
-                withContext(Dispatchers.IO){
-                    var data = albumRepository.createAlbum(body)
-                    _album.postValue(data)
+
+    fun createNewAlbum(body: JSONObject, callback: (Int)-> Unit){
+
+        viewModelScope.launch(Dispatchers.Main) {
+            try {
+                val data = withContext(Dispatchers.IO) {
+                    albumRepository.createAlbum(body)
+
                 }
-                _eventNetworkError.postValue(false)
-                _isNetworkErrorShown.postValue(false)
+                _album.value = data
+                callback(data.id)
+                _eventNetworkError.value = false
+                _isNetworkErrorShown.value = false
+            } catch (e: Exception) {
+                _eventNetworkError.value = true
             }
         }
-        catch (e:Exception){
-            _eventNetworkError.value = true
-        }
     }
+
 }
