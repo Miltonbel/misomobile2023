@@ -20,8 +20,6 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var _binding: FragmentAddAlbumBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     private var genreSelected: String? = null
@@ -67,7 +65,6 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val datePickerFragment = DatePickerFragment()
         val supportFragmentManager = requireActivity().supportFragmentManager
 
-        // we have to implement setFragmentResultListener
         supportFragmentManager.setFragmentResultListener(
             "REQUEST_KEY",
             viewLifecycleOwner
@@ -78,7 +75,6 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
         }
 
-        // show
         datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
     }
 
@@ -95,6 +91,7 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
             spinner.onItemSelectedListener = this
         }
     }
+
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         val itemAtPosition = parent.getItemAtPosition(pos)
         when(parent.id){
@@ -150,5 +147,4 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.newAlbumCover.setText("")
         binding.newAlbumDescription.setText("")
     }
-
 }

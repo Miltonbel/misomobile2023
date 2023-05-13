@@ -1,7 +1,6 @@
 package com.example.vinyls.model
 
 import android.app.Application
-import com.android.volley.VolleyError
 import com.example.vinyls.model.network.NetworkServiceAdapter
 import org.json.JSONObject
 

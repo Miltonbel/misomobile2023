@@ -14,7 +14,6 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
     private val calendar = Calendar.getInstance()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        // default date
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
