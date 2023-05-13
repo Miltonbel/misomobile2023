@@ -119,8 +119,9 @@ class NetworkServiceAdapter constructor(context: Context) {
                 }))
     }
 
-    fun getArtistDetail(artistId:Int, onComplete:(resp:List<ArtistDetail>)->Unit, onError: (error:VolleyError)->Unit){
+    suspend fun getArtistDetail(artistId:Int) = suspendCoroutine<List<ArtistDetail>>{ cont->
         requestQueue.add(getRequest("musicians/$artistId",
+            Response.Listener<String>
             { response ->
                 val resp = JSONObject(response)
                 val list = mutableListOf<ArtistDetail>()
@@ -152,10 +153,10 @@ class NetworkServiceAdapter constructor(context: Context) {
                     description = item.getString("description"),
                     albums = albums
                 ))
-                onComplete(list)
+                cont.resume(list)
             },
-            {
-                onError(it)
+            Response.ErrorListener{
+                cont.resumeWithException(it)
             }))
     }
 
