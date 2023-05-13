@@ -9,8 +9,4 @@ class AlbumDetailRepository (val application: Application){
     suspend fun refreshData(albumId: Int): List<AlbumDetail> {
         return NetworkServiceAdapter.getInstance(application).getAlbumDetail(albumId)
     }
-
-    suspend fun refreshData(): List<AlbumDBDao> {
-        return NetworkServiceAdapter.getInstance(application).getAlbums()
-    }
 }
