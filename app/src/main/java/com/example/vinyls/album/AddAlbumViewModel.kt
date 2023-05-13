@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.vinyls.model.AlbumDBDao
 import com.example.vinyls.model.AlbumRepository
@@ -31,12 +30,14 @@ class AddAlbumViewModel(application: Application) : AndroidViewModel(application
     private val albumRepository = AlbumRepository(application)
     init {}
 
+
     fun createNewAlbum(body: JSONObject, callback: (Int)-> Unit){
 
         viewModelScope.launch(Dispatchers.Main) {
             try {
                 val data = withContext(Dispatchers.IO) {
                     albumRepository.createAlbum(body)
+
                 }
                 _album.value = data
                 callback(data.id)

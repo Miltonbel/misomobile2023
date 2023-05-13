@@ -37,10 +37,7 @@ class ArtistFragment : Fragment() {
         recyclerView = binding.artistRv
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = viewModelAdapter
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
@@ -55,6 +52,7 @@ class ArtistFragment : Fragment() {
             if (isNetworkError) onNetworkError()
         })
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

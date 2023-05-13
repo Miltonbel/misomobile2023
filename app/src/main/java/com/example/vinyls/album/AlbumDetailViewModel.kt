@@ -53,8 +53,6 @@ class AlbumDetailViewModel(application: Application, albumId: Int) :  AndroidVie
         }
     }
 
-
-
     fun onNetworkErrorShown() {
         _isNetworkErrorShown.value = true
     }

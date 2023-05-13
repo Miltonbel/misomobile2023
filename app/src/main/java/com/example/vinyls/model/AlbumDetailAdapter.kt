@@ -1,5 +1,6 @@
 package com.example.vinyls.model
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -13,6 +14,7 @@ import com.squareup.picasso.Picasso
 
 class AlbumDetailAdapter : RecyclerView.Adapter<AlbumDetailAdapter.AlbumDetailViewHolder>(){
     var album :List<AlbumDetail> = emptyList()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -27,6 +29,7 @@ class AlbumDetailAdapter : RecyclerView.Adapter<AlbumDetailAdapter.AlbumDetailVi
         return AlbumDetailViewHolder(withDataBinding)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: AlbumDetailViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.albumDetail = album[position]

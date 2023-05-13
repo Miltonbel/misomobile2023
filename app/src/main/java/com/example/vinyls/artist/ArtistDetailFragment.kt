@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.vinyls.album.ArtistDetailViewModel
 import com.example.vinyls.databinding.ArtistDetailFragmentBinding
 import com.example.vinyls.model.ArtistDetail
 import com.example.vinyls.model.ArtistDetailAdapter
@@ -39,10 +38,7 @@ class ArtistDetailFragment : Fragment() {
         recyclerView = binding.artistDetailRv
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = viewModelAdapter
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
@@ -58,6 +54,7 @@ class ArtistDetailFragment : Fragment() {
             if (isNetworkError) onNetworkError()
         })
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

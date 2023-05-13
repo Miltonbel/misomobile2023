@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.example.vinyls.album.AddAlbumViewModel
-import com.example.vinyls.databinding.FragmentAddAlbumBinding
 import com.example.vinyls.databinding.FragmentAddArtistBinding
 
 class AddArtistFragment : Fragment() {
@@ -16,8 +14,6 @@ class AddArtistFragment : Fragment() {
 
     private var _binding: FragmentAddArtistBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -42,6 +38,4 @@ class AddArtistFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }
