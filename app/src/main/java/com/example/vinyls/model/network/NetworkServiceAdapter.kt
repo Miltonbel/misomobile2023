@@ -162,7 +162,7 @@ class NetworkServiceAdapter constructor(context: Context) {
             }))
     }
 
-    fun getAlbumDetail(albumId:Int, onComplete:(resp:List<AlbumDetail>)->Unit, onError: (error:VolleyError)->Unit){
+    suspend fun getAlbumDetail(albumId:Int) = suspendCoroutine<List<AlbumDetail>>{ cont->
         requestQueue.add(getRequest("albums/$albumId",
             { response ->
                 val resp = JSONObject(response)
@@ -195,12 +195,11 @@ class NetworkServiceAdapter constructor(context: Context) {
                     description = item.getString("description"),
                     tracks = tracks
                 ))
-                onComplete(list)
+                cont.resume(list)
             },
-            {
-                onError(it)
-            }
-        ))
+            Response.ErrorListener{
+                cont.resumeWithException(it)
+            }))
     }
 
     private fun getRequest(
