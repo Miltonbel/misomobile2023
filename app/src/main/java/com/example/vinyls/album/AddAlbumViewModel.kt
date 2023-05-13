@@ -4,8 +4,12 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.vinyls.model.AlbumDBDao
 import com.example.vinyls.model.AlbumRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
 
 class AddAlbumViewModel(application: Application) : AndroidViewModel(application) {
@@ -26,12 +30,19 @@ class AddAlbumViewModel(application: Application) : AndroidViewModel(application
     private val albumRepository = AlbumRepository(application)
     init {}
 
-     fun createNewAlbum(body:JSONObject, callback: (Int)-> Unit){
-         albumRepository.createAlbum(
-             {
-                 callback(it.id)
-             },
-             {},
-             body)
+    fun createNewAlbum(body:JSONObject){
+        try {
+            viewModelScope.launch(Dispatchers.Default){
+                withContext(Dispatchers.IO){
+                    var data = albumRepository.createAlbum(body)
+                    _album.postValue(data)
+                }
+                _eventNetworkError.postValue(false)
+                _isNetworkErrorShown.postValue(false)
+            }
+        }
+        catch (e:Exception){
+            _eventNetworkError.value = true
+        }
     }
 }

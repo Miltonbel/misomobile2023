@@ -10,12 +10,7 @@ class AlbumRepository (val application: Application){
         return NetworkServiceAdapter.getInstance(application).getAlbums()
     }
 
-    fun createAlbum(callback: (AlbumDBDao)->Unit, onError: (VolleyError)->Unit, body: JSONObject) {
-        NetworkServiceAdapter.getInstance(application).postAlbum({
-            callback(it)
-        },
-            onError,
-            body
-        )
+    suspend fun createAlbum(body: JSONObject): AlbumDBDao {
+        return NetworkServiceAdapter.getInstance(application).postAlbum(body)
     }
 }

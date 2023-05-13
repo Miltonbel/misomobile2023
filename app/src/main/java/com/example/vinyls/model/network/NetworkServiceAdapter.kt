@@ -74,22 +74,19 @@ class NetworkServiceAdapter constructor(context: Context) {
                       cont.resumeWithException(it)
                   }))
     }
-    fun postAlbum(
-        onComplete: (AlbumDBDao) -> Unit,
-        onError: (error: VolleyError) -> Unit,
-        body: JSONObject
-    ) {
+    suspend fun postAlbum(body: JSONObject) = suspendCoroutine<AlbumDBDao>{ cont->
         requestQueue.add(
+
             postRequest("albums",
                 body,
+                Response.Listener<JSONObject>
                 { response ->
                     val albumResponse = Gson().fromJson(response.toString(), AlbumDBDao::class.java)
-                    onComplete(albumResponse)
+                    cont.resume(albumResponse)
                 },
-                {
-                    onError(it)
-                })
-        )
+                Response.ErrorListener{
+                    cont.resumeWithException(it)
+                }))
     }
 
 
