@@ -1,5 +1,6 @@
 package com.example.vinyls.model
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -11,6 +12,7 @@ import com.example.vinyls.databinding.TrackItemBinding
 class TrackAdapter : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>(){
 
     var tracks :List<Track> = emptyList()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()

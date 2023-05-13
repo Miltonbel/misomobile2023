@@ -1,23 +1,17 @@
 package com.example.vinyls.model.network
 
 import android.content.Context
-
 import org.json.JSONObject
-
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.vinyls.model.AlbumDBDao
-
 import com.google.gson.Gson
 import com.example.vinyls.model.Artist
-
 import org.json.JSONArray
-
 import com.example.vinyls.model.AlbumDetail
 import com.example.vinyls.model.ArtistDetail
 import com.example.vinyls.model.Track
@@ -27,8 +21,8 @@ import kotlin.coroutines.suspendCoroutine
 
 
 class NetworkServiceAdapter constructor(context: Context) {
-    companion object{
-        const val BASE_URL= "http://10.0.2.2:3000/"
+    companion object {
+        const val BASE_URL = "http://35.209.15.30/"
         var instance: NetworkServiceAdapter? = null
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
@@ -46,7 +40,6 @@ class NetworkServiceAdapter constructor(context: Context) {
         val list = mutableListOf<AlbumDBDao>()
         requestQueue.add(
             getRequest("albums",
-                Response.Listener<String>
                 { response ->
                     val resp = JSONArray(response)
                     val list = mutableListOf<AlbumDBDao>()
@@ -68,30 +61,27 @@ class NetworkServiceAdapter constructor(context: Context) {
                     cont.resume(list)
                 },
 
-                  Response.ErrorListener{
-                      cont.resumeWithException(it)
-                  }))
-    }
-    suspend fun postAlbum(body: JSONObject) = suspendCoroutine<AlbumDBDao>{ cont->
-        requestQueue.add(
-
-            postRequest("albums",
-                body,
-                Response.Listener<JSONObject>
-                { response ->
-                    val albumResponse = Gson().fromJson(response.toString(), AlbumDBDao::class.java)
-                    cont.resume(albumResponse)
-                },
-                Response.ErrorListener{
+                {
                     cont.resumeWithException(it)
                 }))
     }
 
+    suspend fun postAlbum(body: JSONObject) = suspendCoroutine<AlbumDBDao>{ cont->
+        requestQueue.add(
+            postRequest("albums",
+                body,
+                { response ->
+                    val albumResponse = Gson().fromJson(response.toString(), AlbumDBDao::class.java)
+                    cont.resume(albumResponse)
+                },
+                {
+                    cont.resumeWithException(it)
+                }))
+    }
 
     suspend fun getArtists() = suspendCoroutine<List<Artist>>{ cont->
         requestQueue.add(
             getRequest("musicians",
-                Response.Listener<String>
                 { response ->
                     val resp = JSONArray(response)
                     val list = mutableListOf<Artist>()
@@ -109,14 +99,13 @@ class NetworkServiceAdapter constructor(context: Context) {
                     }
                     cont.resume(list)
                 },
-                Response.ErrorListener{
+                {
                     cont.resumeWithException(it)
                 }))
     }
 
     suspend fun getArtistDetail(artistId:Int) = suspendCoroutine<List<ArtistDetail>>{ cont->
         requestQueue.add(getRequest("musicians/$artistId",
-            Response.Listener<String>
             { response ->
                 val resp = JSONObject(response)
                 val list = mutableListOf<ArtistDetail>()
@@ -150,7 +139,7 @@ class NetworkServiceAdapter constructor(context: Context) {
                 ))
                 cont.resume(list)
             },
-            Response.ErrorListener{
+            {
                 cont.resumeWithException(it)
             }))
     }

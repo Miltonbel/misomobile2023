@@ -1,4 +1,4 @@
-package com.example.vinyls.album
+package com.example.vinyls.artist
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -41,7 +41,7 @@ class ArtistDetailViewModel(application: Application, artistId: Int) :  AndroidV
         try {
             viewModelScope.launch(Dispatchers.Default){
                 withContext(Dispatchers.IO){
-                    var data = artistDetailRepository.refreshData(id)
+                    val data = artistDetailRepository.refreshData(id)
                     _artist.postValue(data)
                 }
                 _eventNetworkError.postValue(false)

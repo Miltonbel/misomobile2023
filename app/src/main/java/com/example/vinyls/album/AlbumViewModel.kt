@@ -1,7 +1,6 @@
 package com.example.vinyls.album
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -39,7 +38,7 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
         try {
             viewModelScope.launch(Dispatchers.Default){
                 withContext(Dispatchers.IO){
-                    var data = albumRepository.refreshData()
+                    val data = albumRepository.refreshData()
                     _albums.postValue(data)
                 }
                 _eventNetworkError.postValue(false)
