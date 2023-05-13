@@ -131,7 +131,7 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val newAlbum = buildCreateBody()
         val addAlbumViewModel = ViewModelProvider(this).get(AddAlbumViewModel::class.java)
 
-        addAlbumViewModel.createNewAlbum(newAlbum, navigate)
+        addAlbumViewModel.createNewAlbum(newAlbum)
     }
 
     private fun buildCreateBody():JSONObject{
