@@ -1,7 +1,6 @@
 package com.example.vinyls.model
 
 import android.annotation.SuppressLint
-import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -9,49 +8,49 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinyls.R
-import com.example.vinyls.album.AlbumFragmentDirections
-import com.example.vinyls.databinding.AlbumItemBinding
+import com.example.vinyls.artist.ArtistFragmentDirections
+import com.example.vinyls.databinding.ArtistItemBinding
 import com.squareup.picasso.Picasso
 
-class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>(){
+class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>(){
 
-    var albums :List<AlbumDBDao> = emptyList()
+    var artists :List<Artist> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
-        val withDataBinding: AlbumItemBinding = DataBindingUtil.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistViewHolder {
+        val withDataBinding: ArtistItemBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
-            AlbumViewHolder.LAYOUT,
+            ArtistViewHolder.LAYOUT,
             parent,
             false)
-        return AlbumViewHolder(withDataBinding)
+        return ArtistViewHolder(withDataBinding)
     }
 
-    override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ArtistViewHolder, position: Int) {
         holder.viewDataBinding.also {
-            it.album = albums[position]
-            Picasso.get().load(albums[position].cover).resize(1000, 1000)
+            it.artist = artists[position]
+            Picasso.get().load(artists[position].image).resize(1000, 1000)
                 .into(it.imageView);
         }
         holder.viewDataBinding.root.setOnClickListener {
-            val action = AlbumFragmentDirections.actionAlbumFragmentToAlbumDetailFragment(albums[position].id)
+            val action = ArtistFragmentDirections.actionArtistFragmentToArtistDetailFragment(artists[position].artistId)
             holder.viewDataBinding.root.findNavController().navigate(action)
         }
     }
 
     override fun getItemCount(): Int {
-        return albums.size
+        return artists.size
     }
 
-    class AlbumViewHolder(val viewDataBinding: AlbumItemBinding) :
+    class ArtistViewHolder(val viewDataBinding: ArtistItemBinding) :
         RecyclerView.ViewHolder(viewDataBinding.root) {
         companion object {
             @LayoutRes
-            val LAYOUT = R.layout.album_item
+            val LAYOUT = R.layout.artist_item
         }
     }
 }
