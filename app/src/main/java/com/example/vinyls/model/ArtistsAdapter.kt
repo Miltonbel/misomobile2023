@@ -37,7 +37,7 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>(){
                 .into(it.imageView);
         }
         holder.viewDataBinding.root.setOnClickListener {
-            val action = ArtistFragmentDirections.actionArtistFragmentToArtistDetailFragment(artists[position].artistId)
+            val action = ArtistFragmentDirections.actionArtistFragmentToArtistDetailFragment(artists[position].id)
             holder.viewDataBinding.root.findNavController().navigate(action)
         }
     }
