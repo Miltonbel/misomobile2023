@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="album" type="com.example.vinyls.model.AlbumDBDao"/>
+        <variable name="artist" type="com.example.vinyls.model.Artist"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/stroke_color"
+            app:strokeColor="@color/black"
             app:strokeWidth="1dp">
 
             <LinearLayout
@@ -35,23 +35,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitCenter"
-                        android:src="@{album.cover}" />
+                        android:src="@{artist.image}" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="top"
-                        android:padding="10dp"
-                        android:background="#4D000000">
+                        android:background="#4D000000"
+                        android:padding="10dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{album.name}"
                             android:layout_centerHorizontal="true"
-                            android:textColor = "#FFFFFF"
+                            android:layout_centerVertical="true"
+                            android:text="@{artist.name}"
+                            android:textColor="#FFFFFF"
                             android:textSize="20sp"
-                            android:layout_centerVertical="true" />
+                            android:textStyle="bold" />
 
                     </RelativeLayout>
                 </FrameLayout>
