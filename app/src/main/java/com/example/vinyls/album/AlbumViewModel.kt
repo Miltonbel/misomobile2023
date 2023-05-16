@@ -6,8 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.vinyls.model.AlbumDBDao
 import com.example.vinyls.model.AlbumRepository
+
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
 
 class AlbumViewModel(application: Application) :  AndroidViewModel(application) {
@@ -28,23 +33,29 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
         get() = _isNetworkErrorShown
     private val albumRepository = AlbumRepository(application)
     init {
-        addTrackToAlbum()
         refreshDataFromNetwork()
     }
 
     private fun refreshDataFromNetwork() {
-        albumRepository.refreshData({
-            _albums.postValue(it)
-            _eventNetworkError.value = false
-            _isNetworkErrorShown.value = false
-        },{
+        try {
+            viewModelScope.launch(Dispatchers.Default){
+                withContext(Dispatchers.IO){
+                    addTrackToAlbum()
+                    val data = albumRepository.refreshData()
+                    _albums.postValue(data)
+                }
+                _eventNetworkError.postValue(false)
+                _isNetworkErrorShown.postValue(false)
+            }
+        }
+        catch (e:Exception){
             _eventNetworkError.value = true
-        })
+        }
     }
 
-    private fun addTrackToAlbum(){
+    private suspend fun addTrackToAlbum(){
         val body = JSONObject(mapOf("name" to "Decisiones", "duration" to "5:05"))
-        albumRepository.addTrackToAlbum(1,body,{},{})
+        albumRepository.addTrackToAlbum(1,body)
     }
 
     fun onNetworkErrorShown() {

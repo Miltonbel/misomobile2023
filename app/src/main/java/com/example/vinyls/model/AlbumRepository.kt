@@ -6,28 +6,17 @@ import com.example.vinyls.model.network.NetworkServiceAdapter
 import org.json.JSONObject
 
 class AlbumRepository (val application: Application){
-    fun refreshData(callback: (List<AlbumDBDao>)->Unit, onError: (VolleyError)->Unit) {
-        NetworkServiceAdapter.getInstance(application).getAlbums({
-            callback(it)
-        },
-            onError
-        )
+
+    suspend fun refreshData(): List<AlbumDBDao> {
+        return NetworkServiceAdapter.getInstance(application).getAlbums()
     }
 
-    fun addTrackToAlbum(albumId:Int,body:JSONObject, callback: (Any)->Unit, onError: (VolleyError)->Unit){
-        NetworkServiceAdapter.getInstance(application).postTracksToAlbum(albumId,{
-                callback(it)
-            },
-            onError,
-            body
-        )
+    suspend fun createAlbum(body: JSONObject): AlbumDBDao {
+        return NetworkServiceAdapter.getInstance(application).postAlbum(body)
     }
-    fun createAlbum(callback: (AlbumDBDao)->Unit, onError: (VolleyError)->Unit, body: JSONObject) {
-        NetworkServiceAdapter.getInstance(application).postAlbum({
-            callback(it)
-        },
-            onError,
-            body
-        )
+
+    suspend fun addTrackToAlbum(albumId:Int,body:JSONObject){
+        NetworkServiceAdapter.getInstance(application).postTracksToAlbum(albumId, body)
     }
+
 }

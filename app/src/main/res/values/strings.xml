@@ -2,8 +2,8 @@
     <string name="app_name">vinyls</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Vynils App</string>
+    <string name="nav_header_subtitle">UniAndes</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -15,7 +15,7 @@
     <string name="albums_list">Albumes</string>
 
     <!-- FORMS -->
-    <string name="new_album_title">Vinilos app, crea un nuevo Album</string>
+    <string name="new_album_title">Vinilos app crea \n un nuevo Album</string>
     <string name="new_album_name">Nombre</string>
     <string name="new_album_genre">Genero</string>
     <string name="new_album_cover">Portada</string>
@@ -23,4 +23,24 @@
     <string name="new_album_label">Etiqueta</string>
     <string name="new_album_description">Descripción</string>
 
+    <string-array name="genres">
+        <item>Classical</item>
+        <item>Salsa</item>
+        <item>Rock</item>
+        <item>Folk</item>
+    </string-array>
+
+    <string-array name="labels">
+        <item>Sony Music</item>
+        <item>EMI</item>
+        <item>Discos Fuentes</item>
+        <item>Elektra</item>
+        <item>Fania Records</item>
+    </string-array>
+
+
+    <string name="songs">Canciones</string>
+    <string name="artist_detail_albums">Albumes</string>
+    <string name="detail_artist">Detalle artista</string>
+    <string name="create_album">Crear</string>
 </resources>

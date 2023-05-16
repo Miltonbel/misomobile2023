@@ -14,9 +14,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
+        android:text="@string/new_album_title"
         android:textAlignment="center"
         android:textSize="20sp"
-        android:text="@string/new_album_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,15 +33,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/new_album_genre"
+
+    <Spinner
+        android:id="@+id/spinner_genre"
         android:layout_width="157dp"
         android:layout_height="44dp"
         android:layout_marginTop="100dp"
         android:ems="10"
-        android:hint="@string/new_album_genre"
+        android:spinnerMode="dropdown"
+        android:prompt="@string/new_album_genre"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.919"
+        app:layout_constraintHorizontal_bias="0.921"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,24 +65,27 @@
         android:layout_width="164dp"
         android:layout_height="44dp"
         android:layout_marginTop="212dp"
-        android:ems="10"
+
         android:clickable="false"
         android:cursorVisible="false"
+        android:ems="10"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:hint="@string/new_album_release"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.151"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/new_album_label"
+
+    <Spinner
+        android:id="@+id/spinner_label"
         android:layout_width="157dp"
         android:layout_height="44dp"
         android:layout_marginTop="212dp"
         android:ems="10"
-        android:hint="@string/new_album_label"
+        android:spinnerMode="dropdown"
+        android:prompt="@string/new_album_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.919"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,8 +97,8 @@
         android:layout_height="139dp"
         android:layout_marginTop="268dp"
         android:ems="10"
-        android:hint="@string/new_album_description"
         android:gravity="top"
+        android:hint="@string/new_album_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,11 +110,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="492dp"
         android:backgroundTint="#00AA00"
-        android:text="Crear"
+        android:text="@string/create_album"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.425"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
