@@ -1,12 +1,71 @@
 package com.example.vinyls.album
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.example.vinyls.model.AlbumDBDao
+import com.example.vinyls.model.AlbumRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
 
-class AddAlbumTracksViewModel : ViewModel() {
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is add album tracks Fragment"
+class AddAlbumTracksViewModel(application: Application) :  AndroidViewModel(application) {
+    private val _albums = MutableLiveData<List<AlbumDBDao>>()
+
+    val albums: LiveData<List<AlbumDBDao>>
+        get() = _albums
+
+    private var _eventNetworkError = MutableLiveData(false)
+
+    val eventNetworkError: LiveData<Boolean>
+        get() = _eventNetworkError
+
+    private var _isNetworkErrorShown = MutableLiveData(false)
+
+    val isNetworkErrorShown: LiveData<Boolean>
+        get() = _isNetworkErrorShown
+    private val albumRepository = AlbumRepository(application)
+    init {
+        refreshAlbumsFromNetwork()
     }
-    val text: LiveData<String> = _text
+
+    private fun refreshAlbumsFromNetwork() {
+        try {
+            viewModelScope.launch(Dispatchers.Default){
+                withContext(Dispatchers.IO){
+                    val data = albumRepository.refreshData()
+                    _albums.postValue(data)
+                }
+                _eventNetworkError.postValue(false)
+                _isNetworkErrorShown.postValue(false)
+            }
+        }
+        catch (e:Exception){
+            _eventNetworkError.value = true
+        }
+    }
+
+    fun onNetworkErrorShown() {
+        _isNetworkErrorShown.value = true
+    }
+
+    private suspend fun addTrackToAlbum(){
+        val body = JSONObject(mapOf("name" to "Decisiones", "duration" to "5:05"))
+        albumRepository.addTrackToAlbum(1,body)
+    }
+
+    class Factory(val app: Application) : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(AddAlbumTracksViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return AddAlbumTracksViewModel(app) as T
+            }
+            throw IllegalArgumentException("Unable to construct viewmodel")
+        }
+    }
 }

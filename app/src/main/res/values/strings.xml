@@ -22,6 +22,8 @@
     <string name="new_album_release">Fecha de lanzamiento</string>
     <string name="new_album_label">Etiqueta</string>
     <string name="new_album_description">Descripción</string>
+    <string name="add_album_track_tittle">Elige \n el album</string>
+    <string name="add_track_tittle">Ingresa \n la canción</string>
 
     <string-array name="genres">
         <item>Classical</item>
@@ -44,4 +46,6 @@
     <string name="detail_artist">Detalle artista</string>
     <string name="create_album">Crear</string>
     <string name="cover_album_form">Caratula del album</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -40,7 +40,6 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
         try {
             viewModelScope.launch(Dispatchers.Default){
                 withContext(Dispatchers.IO){
-                    addTrackToAlbum()
                     val data = albumRepository.refreshData()
                     _albums.postValue(data)
                 }
@@ -51,11 +50,6 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
         catch (e:Exception){
             _eventNetworkError.value = true
         }
-    }
-
-    private suspend fun addTrackToAlbum(){
-        val body = JSONObject(mapOf("name" to "Decisiones", "duration" to "5:05"))
-        albumRepository.addTrackToAlbum(1,body)
     }
 
     fun onNetworkErrorShown() {

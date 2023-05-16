@@ -1,40 +1,73 @@
 package com.example.vinyls.album
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.vinyls.databinding.FragmentAddAlbumTracksBinding
+import com.example.vinyls.model.AddAlbumTracksAdapter
+import com.example.vinyls.model.AlbumsAdapter
+
 
 class AddAlbumTracksFragment : Fragment() {
 
     private var _binding: FragmentAddAlbumTracksBinding? = null
-
     private val binding get() = _binding!!
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewModel: AddAlbumTracksViewModel
+    private var viewModelAdapter: AddAlbumTracksAdapter? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val addAlbumTracksViewModel =
-            ViewModelProvider(this).get(AddAlbumTracksViewModel::class.java)
-
         _binding = FragmentAddAlbumTracksBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        val view = binding.root
 
-        val textView: TextView = binding.textAddAlbumTracks
-        addAlbumTracksViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        viewModelAdapter = AddAlbumTracksAdapter()
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        recyclerView = binding.recyclerAlbumTracks
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = viewModelAdapter
+
+        val activity = requireNotNull(this.activity) {
+            "You can only access the viewModel after onActivityCreated()"
         }
-        return root
+        viewModel = ViewModelProvider(this, AddAlbumTracksViewModel.Factory(activity.application)).get(
+            AddAlbumTracksViewModel::class.java)
+
+        viewModel.albums.observe(viewLifecycleOwner) {
+            it.apply {
+                viewModelAdapter!!.album = this
+            }
+        }
+        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer<Boolean> { isNetworkError ->
+            if (isNetworkError) onNetworkError()
+        })
+
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun onNetworkError() {
+        if (!viewModel.isNetworkErrorShown.value!!) {
+            Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
+            viewModel.onNetworkErrorShown()
+        }
     }
 }
