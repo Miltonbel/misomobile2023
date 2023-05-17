@@ -1,5 +1,6 @@
 package com.example.vinyls.album
 
+import android.app.DatePickerDialog
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.SparseArray
@@ -7,14 +8,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import com.example.vinyls.R
+import com.example.vinyls.databinding.FragmentAddAlbumBinding
+import org.json.JSONObject
+import java.util.Calendar
+
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.core.util.forEach
 import androidx.navigation.fragment.findNavController
-import com.example.vinyls.R
-import com.example.vinyls.databinding.FragmentAddAlbumBinding
-import org.json.JSONObject
+
 
 class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
@@ -34,6 +42,7 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
         _binding = FragmentAddAlbumBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+
         val sparseArray: SparseArray<Spinner> = SparseArray()
         sparseArray.set(R.array.genres, binding.spinnerGenre)
         sparseArray.set(R.array.labels, binding.spinnerLabel)
@@ -51,7 +60,13 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 },{})
                 clearForm()
             }
+
         }
+
+        //val textView: TextView = binding.textAddAlbum
+        /*addAlbumViewModel.text.observe(viewLifecycleOwner) {
+            textView.text = it
+        }*/
         return root
     }
 
@@ -74,7 +89,7 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 binding.newAlbumRelease.setText(date)
             }
         }
-
+        // show
         datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
     }
 
