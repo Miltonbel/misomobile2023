@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".album.AddAlbumTracksFormFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -96,7 +97,7 @@
         app:layout_constraintTop_toBottomOf="@+id/timer_layout" >
 
         <Button
-            android:id="@+id/new_album_button"
+            android:id="@+id/new_album_track_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#00AA00"

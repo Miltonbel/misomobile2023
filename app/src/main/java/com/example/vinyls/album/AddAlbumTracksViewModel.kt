@@ -54,11 +54,6 @@ class AddAlbumTracksViewModel(application: Application) :  AndroidViewModel(appl
         _isNetworkErrorShown.value = true
     }
 
-    private suspend fun addTrackToAlbum(){
-        val body = JSONObject(mapOf("name" to "Decisiones", "duration" to "5:05"))
-        albumRepository.addTrackToAlbum(1,body)
-    }
-
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(AddAlbumTracksViewModel::class.java)) {
