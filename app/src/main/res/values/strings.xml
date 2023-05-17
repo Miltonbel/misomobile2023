@@ -24,6 +24,7 @@
     <string name="new_album_description">Descripción</string>
     <string name="add_album_track_tittle">Elige \n el album</string>
     <string name="add_track_tittle">Ingresa \n la canción</string>
+    <string name="add_track_timer">Duración</string>
 
     <string-array name="genres">
         <item>Classical</item>

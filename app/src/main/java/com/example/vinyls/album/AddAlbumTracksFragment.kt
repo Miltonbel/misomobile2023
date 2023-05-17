@@ -56,6 +56,9 @@ class AddAlbumTracksFragment : Fragment() {
             if (isNetworkError) onNetworkError()
         })
 
+        binding.recyclerAlbumTracks.setOnClickListener {
+            println("hola mundo ")
+        }
 
     }
 

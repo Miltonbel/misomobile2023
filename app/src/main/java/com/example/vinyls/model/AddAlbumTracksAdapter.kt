@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinyls.R
+import com.example.vinyls.album.AddAlbumTracksFragmentDirections
 import com.example.vinyls.databinding.AlbumItemFormBinding
 import com.squareup.picasso.Picasso
 
@@ -41,6 +43,10 @@ class AddAlbumTracksAdapter :
                 .into(it.albumTrackFormImage)
             it.albumTrackFormImage.clipToOutline = true
 
+            holder.viewDataBinding.root.setOnClickListener {
+                val action = AddAlbumTracksFragmentDirections.actionNavAddAlbumTracksToAddAlbumsTracksForm(album[position].id.toString())
+                holder.viewDataBinding.root.findNavController().navigate(action)
+            }
         }
     }
 
