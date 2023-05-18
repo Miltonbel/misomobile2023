@@ -83,9 +83,10 @@
     <fragment
         android:id="@+id/add_albums_tracks_form"
         android:name="com.example.vinyls.album.AddAlbumTracksFormFragment"
-        android:label="fragment_add_albums_tracks_form"
-        tools:layout="@layout/fragment_add_albums_tracks_form" >
-        <argument android:name="albumId"
+        android:label="@string/add_album_tracks_form"
+        tools:layout="@layout/fragment_add_albums_tracks_form">
+        <argument
+            android:name="albumId"
             app:argType="string" />
         <action
             android:id="@+id/action_add_albums_tracks_form_to_albumDetailFragment"
