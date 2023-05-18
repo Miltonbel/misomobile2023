@@ -29,11 +29,13 @@ class AddAlbumToArtistFormFragment: Fragment()  {
         binding.newSecondTrack.maxValue = MAX_TIME
 
         binding.newAlbumArtistButton.setOnClickListener {
-            createAlbumTrackAction({
+            createAlbumTrackAction {
                 findNavController().navigate(
-                    AddAlbumToArtistFormFragmentDirections.actionAddAlbumsToArtistFormToArtistDetailFragment(it)
+                    AddAlbumToArtistFormFragmentDirections.actionAddAlbumsToArtistFormToArtistDetailFragment(
+                        it
+                    )
                 )
-            }) {}
+            }
         }
         return view
     }
@@ -48,7 +50,7 @@ class AddAlbumToArtistFormFragment: Fragment()  {
             AddAlbumToArtistFormViewModel::class.java)
     }
 
-    private fun createAlbumTrackAction(navigate: (Int) -> Unit, function: () -> Unit){
+    private fun createAlbumTrackAction(navigate: (Int) -> Unit){
         val newAlbumArtist = buildCreateBody()
         val addAlbumArtistViewModel = ViewModelProvider(this)[AddAlbumToArtistFormViewModel::class.java]
 

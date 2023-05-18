@@ -11,20 +11,20 @@
             android:id="@+id/album_to_artist_form_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:text="@string/songs"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="@string/selectartist"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/frame_separator_1"
             android:layout_width="0dp"
             android:layout_height="3dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:background="#B1B0B0"
             android:orientation="horizontal"
@@ -46,9 +46,10 @@
                 android:id="@+id/recycler_album_to_artists"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
                 android:scrollbars="vertical"
-                tools:listitem="@layout/artist_item_form"
-                />
+                tools:listitem="@layout/artist_item_form" />
         </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

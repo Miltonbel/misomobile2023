@@ -54,10 +54,10 @@ class NetworkServiceAdapter constructor(context: Context) {
                 { response ->
                     val albumResponse = Gson().fromJson(response.toString(), AlbumDBDao::class.java)
                     cont.resume(albumResponse)
-                },
-                {
-                    cont.resumeWithException(it)
-                }))
+                }
+            ) {
+                cont.resumeWithException(it)
+            })
     }
 
     suspend fun getArtists() = suspendCoroutine{ cont->
@@ -89,10 +89,23 @@ class NetworkServiceAdapter constructor(context: Context) {
                 { response ->
                     val addedResponse = Gson().fromJson(response.toString(), Any::class.java)
                     cont.resume(addedResponse)
-                },
-                {
-                    cont.resumeWithException(it)
-                })
+                }
+            ) {
+                cont.resumeWithException(it)
+            }
+        )
+    }
+
+    suspend fun postAlbumToArtist(artistId:Int, albumId:Int) = suspendCoroutine<Any> { cont ->
+        requestQueue.add(
+            postRequest(String.format("musicians/%s/albums/%s", artistId, albumId), null,
+                { response ->
+                    val addedResponse = Gson().fromJson(response.toString(), Any::class.java)
+                    cont.resume(addedResponse)
+                }
+            ) {
+                cont.resumeWithException(it)
+            }
         )
     }
 
@@ -117,7 +130,7 @@ class NetworkServiceAdapter constructor(context: Context) {
 
     private fun postRequest(
         path: String,
-        body: JSONObject,
+        body: JSONObject?,
         responseListener: Response.Listener<JSONObject>,
         errorListener: Response.ErrorListener
     ): JsonObjectRequest {
