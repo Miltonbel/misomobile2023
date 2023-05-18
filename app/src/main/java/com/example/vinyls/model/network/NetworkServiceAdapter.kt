@@ -5,6 +5,7 @@ import org.json.JSONObject
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
+import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -85,6 +86,19 @@ class NetworkServiceAdapter constructor(context: Context) {
             }))
     }
 
+    suspend fun postTracksToAlbum(albumId:Int, body:JSONObject) = suspendCoroutine<Any> { cont ->
+        requestQueue.add(
+            postRequest(String.format("albums/%s/tracks", albumId), body,
+                { response ->
+                    val addedResponse = Gson().fromJson(response.toString(), Any::class.java)
+                    cont.resume(addedResponse)
+                },
+                {
+                    cont.resumeWithException(it)
+                })
+        )
+    }
+
     suspend fun getAlbumDetail(albumId:Int) = suspendCoroutine<List<AlbumDetail>>{ cont->
         requestQueue.add(getRequest("albums/$albumId",
             { response ->
@@ -95,6 +109,7 @@ class NetworkServiceAdapter constructor(context: Context) {
                 cont.resumeWithException(it)
             }))
     }
+
 
     private fun getRequest(
         path: String,

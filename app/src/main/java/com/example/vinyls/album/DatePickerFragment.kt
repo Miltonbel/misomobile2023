@@ -14,13 +14,16 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
     private val calendar = Calendar.getInstance()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
+
         val datePickerDialog = DatePickerDialog(requireActivity(), this, year, month, day)
         datePickerDialog.datePicker.maxDate = calendar.timeInMillis
         return datePickerDialog
+
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
