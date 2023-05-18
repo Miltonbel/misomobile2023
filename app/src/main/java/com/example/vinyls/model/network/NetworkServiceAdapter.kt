@@ -5,17 +5,14 @@ import org.json.JSONObject
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.vinyls.model.AlbumDBDao
 import com.google.gson.Gson
 import com.example.vinyls.model.Artist
-import org.json.JSONArray
 import com.example.vinyls.model.AlbumDetail
 import com.example.vinyls.model.ArtistDetail
-import com.example.vinyls.model.Track
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -109,7 +106,6 @@ class NetworkServiceAdapter constructor(context: Context) {
                 cont.resumeWithException(it)
             }))
     }
-
 
     private fun getRequest(
         path: String,
