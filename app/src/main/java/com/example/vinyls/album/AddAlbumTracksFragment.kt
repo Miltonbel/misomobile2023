@@ -8,12 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinyls.databinding.FragmentAddAlbumTracksBinding
 import com.example.vinyls.model.AddAlbumTracksAdapter
-import com.example.vinyls.model.AlbumsAdapter
 
 
 class AddAlbumTracksFragment : Fragment() {
@@ -44,21 +42,21 @@ class AddAlbumTracksFragment : Fragment() {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
-        viewModel = ViewModelProvider(this, AddAlbumTracksViewModel.Factory(activity.application)).get(
-            AddAlbumTracksViewModel::class.java)
+        viewModel =
+            ViewModelProvider(this, AddAlbumTracksViewModel.Factory(activity.application)).get(
+                AddAlbumTracksViewModel::class.java
+            )
 
         viewModel.albums.observe(viewLifecycleOwner) {
             it.apply {
                 viewModelAdapter!!.album = this
             }
         }
-        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer<Boolean> { isNetworkError ->
-            if (isNetworkError) onNetworkError()
-        })
-
-        binding.recyclerAlbumTracks.setOnClickListener {
-            println("hola mundo ")
-        }
+        viewModel.eventNetworkError.observe(
+            viewLifecycleOwner,
+            Observer<Boolean> { isNetworkError ->
+                if (isNetworkError) onNetworkError()
+            })
 
     }
 
