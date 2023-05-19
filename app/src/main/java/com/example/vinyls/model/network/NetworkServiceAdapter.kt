@@ -96,7 +96,7 @@ class NetworkServiceAdapter constructor(context: Context) {
         )
     }
 
-    suspend fun postAlbumToArtist(artistId:Int, albumId:Int) = suspendCoroutine<Any> { cont ->
+    suspend fun postAlbumToArtist(albumId:Int, artistId:Int) = suspendCoroutine<Any> { cont ->
         requestQueue.add(
             postRequest(String.format("musicians/%s/albums/%s", artistId, albumId), null,
                 { response ->

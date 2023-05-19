@@ -53,4 +53,5 @@
     <string name="artists">Artistas</string>
     <string name="albums">Albumes</string>
     <string name="selectartist">Seleccione un artista</string>
+    <string name="selctalbum">Seleccione un album</string>
 </resources>

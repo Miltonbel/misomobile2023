@@ -9,7 +9,7 @@ class ArtistRepository (val application: Application){
         return NetworkServiceAdapter.getInstance(application).getArtists()
     }
 
-    suspend fun addAlbumToArtist(albumId:Int,body: JSONObject){
-        NetworkServiceAdapter.getInstance(application).postTracksToAlbum(albumId, body)
+    suspend fun addAlbumToArtist(albumId:Int, artistId:Int){
+        NetworkServiceAdapter.getInstance(application).postAlbumToArtist(albumId, artistId)
     }
 }
