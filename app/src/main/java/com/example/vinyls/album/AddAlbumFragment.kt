@@ -1,6 +1,5 @@
 package com.example.vinyls.album
 
-import android.app.DatePickerDialog
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.SparseArray
@@ -9,13 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+
 import com.example.vinyls.R
 import com.example.vinyls.databinding.FragmentAddAlbumBinding
 import org.json.JSONObject
-import java.util.Calendar
 
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -52,21 +48,17 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
             createDatePicker()
         }
         binding.newAlbumButton.setOnClickListener {
-            if(checkValidForm()){
+            if (checkValidForm()) {
                 createAlbumAction({ newAlbumId: Int ->
                     findNavController().navigate(
                         AddAlbumFragmentDirections.actionNavAddAlbumToAlbumDetailFragment(newAlbumId)
                     )
-                },{})
+                }, {})
                 clearForm()
             }
 
         }
 
-        //val textView: TextView = binding.textAddAlbum
-        /*addAlbumViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }*/
         return root
     }
 
@@ -76,7 +68,7 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
 
-    private fun createDatePicker(){
+    private fun createDatePicker() {
         val datePickerFragment = DatePickerFragment()
         val supportFragmentManager = requireActivity().supportFragmentManager
 
@@ -93,7 +85,7 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
         datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
     }
 
-    private fun createSpinner(spinners: SparseArray<Spinner>){
+    private fun createSpinner(spinners: SparseArray<Spinner>) {
         spinners.forEach { arrayId, spinner ->
             ArrayAdapter.createFromResource(
                 this.requireContext(),
@@ -109,7 +101,7 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         val itemAtPosition = parent.getItemAtPosition(pos)
-        when(parent.id){
+        when (parent.id) {
             R.id.spinner_genre -> genreSelected = itemAtPosition.toString()
             R.id.spinner_label -> labelSelected = itemAtPosition.toString()
         }
@@ -119,19 +111,19 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private fun checkValidForm(): Boolean {
         var isValid = true
-        if(binding.newAlbumName.text.toString().isEmpty()){
+        if (binding.newAlbumName.text.toString().isEmpty()) {
             binding.newAlbumName.error = "Ingrese el nombre del album"
             isValid = false
         }
-        if(binding.newAlbumCover.text.toString().isEmpty()){
+        if (binding.newAlbumCover.text.toString().isEmpty()) {
             binding.newAlbumCover.error = "Ingrese la imagen de la portada del album"
             isValid = false
         }
-        if(binding.newAlbumRelease.text.toString().isEmpty()){
+        if (binding.newAlbumRelease.text.toString().isEmpty()) {
             binding.newAlbumRelease.error = "Ingrese la fecha de lanzamiento del album"
             isValid = false
         }
-        if(binding.newAlbumDescription.text.toString().isEmpty()){
+        if (binding.newAlbumDescription.text.toString().isEmpty()) {
             binding.newAlbumDescription.error = "ingrese una descripción para el album"
             isValid = false
         }
@@ -139,7 +131,7 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
         return isValid
     }
 
-    private fun createAlbumAction(navigate: (Int) -> Unit, error:()->Unit){
+    private fun createAlbumAction(navigate: (Int) -> Unit, error: () -> Unit) {
         val newAlbum = buildCreateBody()
         val addAlbumViewModel = ViewModelProvider(this).get(AddAlbumViewModel::class.java)
 
@@ -147,17 +139,20 @@ class AddAlbumFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
 
-    private fun buildCreateBody():JSONObject{
-        return JSONObject(mapOf(
-            "name" to binding.newAlbumName.text.toString(),
-            "cover" to binding.newAlbumCover.text.toString(),
-            "releaseDate" to binding.newAlbumRelease.text.toString(),
-            "description" to binding.newAlbumDescription.text.toString(),
-            "genre" to genreSelected,
-            "recordLabel" to labelSelected))
+    private fun buildCreateBody(): JSONObject {
+        return JSONObject(
+            mapOf(
+                "name" to binding.newAlbumName.text.toString(),
+                "cover" to binding.newAlbumCover.text.toString(),
+                "releaseDate" to binding.newAlbumRelease.text.toString(),
+                "description" to binding.newAlbumDescription.text.toString(),
+                "genre" to genreSelected,
+                "recordLabel" to labelSelected
+            )
+        )
     }
 
-    private fun clearForm(){
+    private fun clearForm() {
         binding.newAlbumName.setText("")
         binding.newAlbumRelease.setText("")
         binding.newAlbumCover.setText("")

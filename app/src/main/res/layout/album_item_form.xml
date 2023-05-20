@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <variable name="artist_detail" type="com.example.vinyls.model.AlbumDBDao"/>
+        <variable name="album_detail" type="com.example.vinyls.model.AlbumDBDao"/>
     </data>
 
     <RelativeLayout
