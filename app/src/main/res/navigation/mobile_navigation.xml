@@ -40,7 +40,11 @@
         android:id="@+id/nav_add_artist"
         android:name="com.example.vinyls.artist.AddArtistFragment"
         android:label="@string/add_artist"
-        tools:layout="@layout/fragment_add_artist" />
+        tools:layout="@layout/fragment_add_artist" >
+        <action
+            android:id="@+id/action_nav_add_artist_to_artistDetailFragment"
+            app:destination="@id/artistDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_add_album_tracks"

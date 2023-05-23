@@ -1,21 +1,18 @@
 package com.example.vinyls.model.network
 
 import android.content.Context
-import org.json.JSONObject
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.vinyls.model.AlbumDBDao
-import com.google.gson.Gson
-import com.example.vinyls.model.Artist
-import org.json.JSONArray
 import com.example.vinyls.model.AlbumDetail
+import com.example.vinyls.model.Artist
 import com.example.vinyls.model.ArtistDetail
-import com.example.vinyls.model.Track
+import com.google.gson.Gson
+import org.json.JSONObject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -69,6 +66,19 @@ class NetworkServiceAdapter constructor(context: Context) {
                 { response ->
                     val arrayArtist: Array<Artist> = Gson().fromJson(response, Array<Artist>::class.java)
                     cont.resume(arrayArtist.asList())
+                },
+                {
+                    cont.resumeWithException(it)
+                }))
+    }
+
+    suspend fun postArtist(body: JSONObject) = suspendCoroutine<Artist>{ cont->
+        requestQueue.add(
+            postRequest("musicians",
+                body,
+                { response ->
+                    val artistResponse = Gson().fromJson(response.toString(), Artist::class.java)
+                    cont.resume(artistResponse)
                 },
                 {
                     cont.resumeWithException(it)
