@@ -72,7 +72,7 @@ class AddAlbumToArtistFormFragment: Fragment()  {
     private fun createAlbumToArtistAction(navigate: (Int) -> Unit){
         val addAlbumToArtistViewModel = ViewModelProvider(this)[AddAlbumToArtistFormViewModel::class.java]
 
-        addAlbumToArtistViewModel.addAlbumToArtist(navigate)
+        viewModelAdapter?.album?.let { addAlbumToArtistViewModel.addAlbumToArtist(navigate, it[0]) }
     }
 
     private fun onNetworkError() {
