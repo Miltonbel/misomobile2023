@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.vinyls.album.AddAlbumTracksFormFragmentDirections
 import com.example.vinyls.album.AddAlbumTracksViewModel
 import com.example.vinyls.databinding.FragmentAddAlbumsToArtistFormBinding
 import com.example.vinyls.model.AddAlbumTracksAdapter
@@ -35,7 +34,7 @@ class AddAlbumToArtistFormFragment: Fragment()  {
         binding.newAlbumTrackButton.setOnClickListener {
             createAlbumToArtistAction {
                 findNavController().navigate(
-                    AddAlbumTracksFormFragmentDirections.actionAddAlbumsTracksFormToAlbumDetailFragment(
+                    AddAlbumToArtistFormFragmentDirections.actionAddAlbumsToArtistFormToArtistDetailFragment(
                         it
                     )
                 )
