@@ -55,4 +55,8 @@
     <string name="cover_album_form">Caratula del album</string>
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="artists">Artistas</string>
+    <string name="albums">Albumes</string>
+    <string name="selectartist">Seleccione un artista</string>
+    <string name="selctalbum">Seleccione un album</string>
 </resources>
