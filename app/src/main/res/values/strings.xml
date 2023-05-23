@@ -14,6 +14,11 @@
     <string name="artist_list">Artistas</string>
     <string name="albums_list">Albumes</string>
 
+    <string name="new_artist_title">Vinilos app crea \n un nuevo Artista</string>
+    <string name="new_artist_name">Nombre</string>
+    <string name="new_artist_image">Imagen</string>
+    <string name="new_artist_birthday">Fecha de nacimiento</string>
+    <string name="new_artist_description">Descripción</string>
     <!-- FORMS -->
     <string name="new_album_title">Vinilos app crea \n un nuevo Album</string>
     <string name="new_album_name">Nombre</string>
