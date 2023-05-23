@@ -32,20 +32,17 @@ class AddAlbumToArtistFormFragment: Fragment()  {
 
         viewModelAdapter = AddAlbumToArtistFormAdapter()
         viewModelAdapter!!.customListener.observe(viewLifecycleOwner) { message ->
-            var tupleCreateNewAsociation = message.split(',')
-            var albumId = tupleCreateNewAsociation[0]
-            var artistId = tupleCreateNewAsociation[1]
-            createAlbumToArtistAction(albumId,artistId,{
+            val tupleCreateNewAssociation = message.split(',')
+            val albumId = tupleCreateNewAssociation[0]
+            val artistId = tupleCreateNewAssociation[1]
+            createAlbumToArtistAction(albumId, artistId) {
                 findNavController().navigate(
                     AddAlbumToArtistFormFragmentDirections.actionAddAlbumsToArtistFormToArtistDetailFragment(
                         it
                     )
                 )
-            })
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-        }
-        binding.newAlbumTrackButton.setOnClickListener {
-
+            }
+            Toast.makeText(requireContext(), "Album asociado con exito", Toast.LENGTH_SHORT).show()
         }
         return view
     }
@@ -65,7 +62,7 @@ class AddAlbumToArtistFormFragment: Fragment()  {
             it.apply {
                 viewModelAdapter!!.album = this
                 val args: AddAlbumToArtistFormFragmentArgs by navArgs()
-                var temp = args.artistId
+                val temp = args.artistId
                 viewModelAdapter!!.artistId = temp
             }
         }
@@ -80,12 +77,6 @@ class AddAlbumToArtistFormFragment: Fragment()  {
     }
 
     private fun createAlbumToArtistAction(albumId:String,artistId:String, navigate: (Int) -> Unit){
-//        val args: AddAlbumToArtistFormFragmentArgs by navArgs()
-//        var temp = args.artistId
-//        val addAlbumToArtistViewModel = ViewModelProvider(this)[AddAlbumToArtistFormViewModel::class.java]
-//        viewModelAdapter?.artistId.let { temp }
-//        viewModelAdapter?.album?.let { addAlbumToArtistViewModel.addAlbumToArtist(navigate, it[0]) }
-          println("Works")
           val addAlbumToArtistViewModel = ViewModelProvider(this)[AddAlbumToArtistFormViewModel::class.java]
           addAlbumToArtistViewModel.addAlbumToArtist(navigate,albumId, artistId )
     }

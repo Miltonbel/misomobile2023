@@ -29,20 +29,14 @@ class AddAlbumToArtistFormAdapter :
             notifyDataSetChanged()
         }
 
-    var lambdaForm: ((Int, Int, ()-> Unit) -> Unit)? = null
-        @SuppressLint("NotifyDataSetChanged")
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddAlbumTracksViewHolder {
         val withDataBinding: AlbumItemFormBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
-            AddAlbumToArtistFormAdapter.AddAlbumTracksViewHolder.LAYOUT,
+            AddAlbumTracksViewHolder.LAYOUT,
             parent,
             false
         )
-        return AddAlbumToArtistFormAdapter.AddAlbumTracksViewHolder(withDataBinding)
+        return AddAlbumTracksViewHolder(withDataBinding)
     }
 
     override fun getItemCount(): Int {
@@ -59,17 +53,12 @@ class AddAlbumToArtistFormAdapter :
             it.albumTrackFormImage.clipToOutline = true
 
             holder.viewDataBinding.root.setOnClickListener {
-
-                val action = AddAlbumToArtistFormFragmentDirections.actionAddAlbumsToArtistFormToArtistDetailFragment(album[position].id)
-                var temp = artistId
+                AddAlbumToArtistFormFragmentDirections.actionAddAlbumsToArtistFormToArtistDetailFragment(album[position].id)
+                artistId
                 _customlistener.value = album[position].id.toString()+","+artistId
-//                holder.viewDataBinding.root.findNavController().navigate(action)
             }
         }
     }
-
-
-
 
     class AddAlbumTracksViewHolder(val viewDataBinding: AlbumItemFormBinding) :
         RecyclerView.ViewHolder(viewDataBinding.root) {
@@ -78,5 +67,4 @@ class AddAlbumToArtistFormAdapter :
             val LAYOUT = R.layout.album_item_form
         }
     }
-
 }

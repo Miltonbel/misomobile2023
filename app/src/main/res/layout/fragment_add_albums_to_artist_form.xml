@@ -7,17 +7,6 @@
     tools:context=".artist.AddAlbumToArtistFormFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Button
-        android:id="@+id/new_album_track_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="500dp"
-        android:backgroundTint="#00AA00"
-        android:text="@string/create_album"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frame_separator_1" />
-
     <TextView
         android:id="@+id/album_track_form_title"
         android:layout_width="match_parent"
