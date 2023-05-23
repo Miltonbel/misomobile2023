@@ -11,26 +11,26 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AddAlbumToArtistFormViewModel(application: Application, artistId: String) :  AndroidViewModel(application) {
-    val artistId: String = artistId
+class AddAlbumToArtistFormViewModel(application: Application) :  AndroidViewModel(application) {
+
     private val artistRepository = ArtistRepository(application)
 
     class Factory(val app: Application, val artistId: String) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(AddAlbumToArtistFormViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return AddAlbumToArtistFormViewModel(app, artistId) as T
+                return AddAlbumToArtistFormViewModel(app) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
     }
 
-    fun addAlbumToArtist(navigate: (Int) -> Unit, get: AlbumDBDao) {
+    fun addAlbumToArtist(navigate: (Int) -> Unit, albumId:String,artistId:String) {
 
         viewModelScope.launch(Dispatchers.Main) {
             try {
                 withContext(Dispatchers.IO) {
-                    artistRepository.addAlbumToArtist(get.id, artistId.toInt())
+                    artistRepository.addAlbumToArtist(albumId.toInt(), artistId.toInt())
                 }
                 navigate(artistId.toInt())
             } catch (e: Exception) {

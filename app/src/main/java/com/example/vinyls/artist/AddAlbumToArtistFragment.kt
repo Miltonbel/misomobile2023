@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinyls.databinding.FragmentAddAlbumToArtistBinding
@@ -41,6 +42,7 @@ class AddAlbumToArtistFragment : Fragment() {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
+
         viewModel = ViewModelProvider(this, AddAlbumToArtistViewModel.Factory(activity.application))[AddAlbumToArtistViewModel::class.java]
 
         viewModel.artists.observe(viewLifecycleOwner) {

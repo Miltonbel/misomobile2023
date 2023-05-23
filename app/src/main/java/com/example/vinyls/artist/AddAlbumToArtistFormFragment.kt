@@ -8,11 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinyls.album.AddAlbumTracksViewModel
 import com.example.vinyls.databinding.FragmentAddAlbumsToArtistFormBinding
-import com.example.vinyls.model.AddAlbumTracksAdapter
+import com.example.vinyls.model.AddAlbumToArtistFormAdapter
 
 class AddAlbumToArtistFormFragment: Fragment()  {
 
@@ -20,7 +21,7 @@ class AddAlbumToArtistFormFragment: Fragment()  {
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: AddAlbumTracksViewModel
-    private var viewModelAdapter: AddAlbumTracksAdapter? = null
+    private var viewModelAdapter: AddAlbumToArtistFormAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,16 +30,22 @@ class AddAlbumToArtistFormFragment: Fragment()  {
         _binding = FragmentAddAlbumsToArtistFormBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        viewModelAdapter = AddAlbumTracksAdapter()
-
-        binding.newAlbumTrackButton.setOnClickListener {
-            createAlbumToArtistAction {
+        viewModelAdapter = AddAlbumToArtistFormAdapter()
+        viewModelAdapter!!.customListener.observe(viewLifecycleOwner) { message ->
+            var tupleCreateNewAsociation = message.split(',')
+            var albumId = tupleCreateNewAsociation[0]
+            var artistId = tupleCreateNewAsociation[1]
+            createAlbumToArtistAction(albumId,artistId,{
                 findNavController().navigate(
                     AddAlbumToArtistFormFragmentDirections.actionAddAlbumsToArtistFormToArtistDetailFragment(
                         it
                     )
                 )
-            }
+            })
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        }
+        binding.newAlbumTrackButton.setOnClickListener {
+
         }
         return view
     }
@@ -57,6 +64,9 @@ class AddAlbumToArtistFormFragment: Fragment()  {
         viewModel.albums.observe(viewLifecycleOwner) {
             it.apply {
                 viewModelAdapter!!.album = this
+                val args: AddAlbumToArtistFormFragmentArgs by navArgs()
+                var temp = args.artistId
+                viewModelAdapter!!.artistId = temp
             }
         }
         viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
@@ -69,10 +79,15 @@ class AddAlbumToArtistFormFragment: Fragment()  {
         _binding = null
     }
 
-    private fun createAlbumToArtistAction(navigate: (Int) -> Unit){
-        val addAlbumToArtistViewModel = ViewModelProvider(this)[AddAlbumToArtistFormViewModel::class.java]
-
-        viewModelAdapter?.album?.let { addAlbumToArtistViewModel.addAlbumToArtist(navigate, it[0]) }
+    private fun createAlbumToArtistAction(albumId:String,artistId:String, navigate: (Int) -> Unit){
+//        val args: AddAlbumToArtistFormFragmentArgs by navArgs()
+//        var temp = args.artistId
+//        val addAlbumToArtistViewModel = ViewModelProvider(this)[AddAlbumToArtistFormViewModel::class.java]
+//        viewModelAdapter?.artistId.let { temp }
+//        viewModelAdapter?.album?.let { addAlbumToArtistViewModel.addAlbumToArtist(navigate, it[0]) }
+          println("Works")
+          val addAlbumToArtistViewModel = ViewModelProvider(this)[AddAlbumToArtistFormViewModel::class.java]
+          addAlbumToArtistViewModel.addAlbumToArtist(navigate,albumId, artistId )
     }
 
     private fun onNetworkError() {

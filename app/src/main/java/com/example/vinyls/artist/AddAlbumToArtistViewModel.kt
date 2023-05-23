@@ -15,7 +15,6 @@ import kotlinx.coroutines.withContext
 
 class AddAlbumToArtistViewModel(application: Application) :  AndroidViewModel(application) {
     private val _artists = MutableLiveData<List<Artist>>()
-
     val artists: LiveData<List<Artist>>
         get() = _artists
 

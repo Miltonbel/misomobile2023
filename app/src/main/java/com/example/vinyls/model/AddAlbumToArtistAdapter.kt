@@ -42,7 +42,7 @@ class AddAlbumToArtistAdapter :
             Picasso.get().load(artist[position].image).resize(450, 450)
                 .into(it.albumToArtistFormImage)
             it.albumToArtistFormImage.clipToOutline = true
-
+            it.artistDetail = artist[position]
             holder.viewDataBinding.root.setOnClickListener {
                 val action = AddAlbumToArtistFragmentDirections.actionNavAddAlbumToArtistToAddAlbumsToArtistForm(artist[position].id.toString())
                 holder.viewDataBinding.root.findNavController().navigate(action)
