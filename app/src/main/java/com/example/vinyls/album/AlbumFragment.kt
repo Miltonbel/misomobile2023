@@ -52,7 +52,6 @@ class AlbumFragment : Fragment() {
             if (isNetworkError) onNetworkError()
         })
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

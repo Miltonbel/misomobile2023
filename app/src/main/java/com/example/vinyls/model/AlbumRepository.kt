@@ -11,7 +11,6 @@ import org.json.JSONObject
 
 class AlbumRepository (val application: Application, private val albumsDao: AlbumsDao){
 
-
     suspend fun refreshData(): List<Album> {
         var cached = albumsDao.getAlbums()
         return if(cached.isNullOrEmpty()){

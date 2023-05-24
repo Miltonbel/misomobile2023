@@ -4,16 +4,17 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.vinyls.R
 import com.example.vinyls.artist.AddAlbumToArtistFormFragmentDirections
 import com.example.vinyls.databinding.AlbumItemFormBinding
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.NetworkPolicy
-import com.squareup.picasso.Picasso
 
 class AddAlbumToArtistFormAdapter :
     RecyclerView.Adapter<AddAlbumToArtistFormAdapter.AddAlbumTracksViewHolder>() {
@@ -50,10 +51,7 @@ class AddAlbumToArtistFormAdapter :
     override fun onBindViewHolder(holder: AddAlbumTracksViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.albumTrackFormText.text = album[position].name
-            Picasso.get().load(album[position].cover).resize(450, 450)
-                .memoryPolicy(MemoryPolicy.NO_STORE)
-                .networkPolicy(NetworkPolicy.OFFLINE)
-                .into(it.albumTrackFormImage)
+            holder.bind(album[position])
             it.albumTrackFormImage.clipToOutline = true
 
             holder.viewDataBinding.root.setOnClickListener {
@@ -69,6 +67,17 @@ class AddAlbumToArtistFormAdapter :
         companion object {
             @LayoutRes
             val LAYOUT = R.layout.album_item_form
+        }
+        fun bind(album: Album) {
+            Glide.with(itemView)
+                .load(album.cover.toUri().buildUpon().scheme("https").build())
+                .apply(
+                    RequestOptions()
+                        .placeholder(R.drawable.loading_animation)
+                        .override(450, 450)
+                        .error(R.drawable.ic_broken_image)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL))
+                .into(viewDataBinding.albumTrackFormImage)
         }
     }
 }

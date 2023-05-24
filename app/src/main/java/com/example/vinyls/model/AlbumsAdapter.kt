@@ -1,20 +1,20 @@
 package com.example.vinyls.model
 
 import android.annotation.SuppressLint
-import android.graphics.Bitmap
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.vinyls.R
 import com.example.vinyls.album.AlbumFragmentDirections
 import com.example.vinyls.databinding.AlbumItemBinding
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.NetworkPolicy
-import com.squareup.picasso.Picasso
 
 class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>(){
 
@@ -38,13 +38,7 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>(){
         try {
             holder.viewDataBinding.also {
                 it.album = albums[position]
-
-                Picasso.get()
-                    .load(albums[position].cover)
-                    .resize(1000, 1000)
-                    .memoryPolicy(MemoryPolicy.NO_STORE)
-                    .networkPolicy(NetworkPolicy.OFFLINE)
-                    .into(it.imageView)
+                holder.bind(albums[position])
             }
         } catch (e: Exception) {
             Log.d("TAG", e.printStackTrace().toString())
@@ -66,6 +60,17 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>(){
         companion object {
             @LayoutRes
             val LAYOUT = R.layout.album_item
+        }
+        fun bind(album: Album) {
+            Glide.with(itemView)
+                .load(album.cover.toUri().buildUpon().scheme("https").build())
+                .apply(
+                    RequestOptions()
+                        .placeholder(R.drawable.loading_animation)
+                        .override(1000, 1000)
+                        .error(R.drawable.ic_broken_image)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL))
+                .into(viewDataBinding.imageView)
         }
     }
 }

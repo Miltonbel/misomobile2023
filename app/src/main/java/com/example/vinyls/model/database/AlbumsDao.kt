@@ -15,5 +15,5 @@ interface AlbumsDao {
     fun insert(album: Album)
 
     @Query("DELETE FROM albums_table")
-    fun deleteAll()
+    fun deleteAll(): Int
 }
