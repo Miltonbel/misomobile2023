@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.vinyls.model.Artist
 import com.example.vinyls.model.ArtistRepository
+import com.example.vinyls.model.database.VinylRoomDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -29,7 +30,7 @@ class ArtistViewModel(application: Application) :  AndroidViewModel(application)
 
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
-    private val artistRepository = ArtistRepository(application)
+    private val artistRepository = ArtistRepository(application, VinylRoomDatabase.getDatabase(application.applicationContext).artistsDao())
     init {
         refreshDataFromNetwork()
     }

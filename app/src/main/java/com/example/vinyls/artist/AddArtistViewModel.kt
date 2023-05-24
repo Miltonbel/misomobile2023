@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.vinyls.model.Artist
 import com.example.vinyls.model.ArtistRepository
+import com.example.vinyls.model.database.VinylRoomDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -39,7 +40,7 @@ class AddArtistViewModel(application: Application) : AndroidViewModel(applicatio
 
 
 
-    private val artistRepository = ArtistRepository(application)
+    private val artistRepository = ArtistRepository(application, VinylRoomDatabase.getDatabase(application.applicationContext).artistsDao())
     init {}
     fun createNewArtist(body: JSONObject, callback: (Int)-> Unit){
 
