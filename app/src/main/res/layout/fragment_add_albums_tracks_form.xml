@@ -104,6 +104,4 @@
             android:text="@string/create_album" />
 
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

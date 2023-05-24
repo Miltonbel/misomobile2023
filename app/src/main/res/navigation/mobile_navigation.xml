@@ -40,7 +40,11 @@
         android:id="@+id/nav_add_artist"
         android:name="com.example.vinyls.artist.AddArtistFragment"
         android:label="@string/add_artist"
-        tools:layout="@layout/fragment_add_artist" />
+        tools:layout="@layout/fragment_add_artist" >
+        <action
+            android:id="@+id/action_nav_add_artist_to_artistDetailFragment"
+            app:destination="@id/artistDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_add_album_tracks"
@@ -55,8 +59,15 @@
     <fragment
         android:id="@+id/nav_add_album_to_artist"
         android:name="com.example.vinyls.artist.AddAlbumToArtistFragment"
-        android:label="@string/add_album_to_artist"
-        tools:layout="@layout/fragment_add_album_to_artist" />
+        android:label="Agregar album a artista"
+        tools:layout="@layout/fragment_add_album_to_artist">
+        <argument
+            android:name="artistId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_nav_add_album_to_artist_to_add_albums_to_artist_form"
+            app:destination="@id/add_albums_to_artist_form"/>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_list_artist"
@@ -80,6 +91,7 @@
             android:id="@+id/action_albumFragment_to_albumDetailFragment"
             app:destination="@id/albumDetailFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/add_albums_tracks_form"
         android:name="com.example.vinyls.album.AddAlbumTracksFormFragment"
@@ -91,5 +103,18 @@
         <action
             android:id="@+id/action_add_albums_tracks_form_to_albumDetailFragment"
             app:destination="@id/albumDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/add_albums_to_artist_form"
+        android:name="com.example.vinyls.artist.AddAlbumToArtistFormFragment"
+        android:label="Agregar album a artista"
+        tools:layout="@layout/fragment_add_albums_to_artist_form">
+        <argument
+            android:name="artistId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_add_albums_to_artist_form_to_artistDetailFragment"
+            app:destination="@id/artistDetailFragment" />
     </fragment>
 </navigation>
