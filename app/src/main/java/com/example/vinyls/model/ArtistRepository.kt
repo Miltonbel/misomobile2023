@@ -1,15 +1,19 @@
 package com.example.vinyls.model
 
 import android.app.Application
-import com.android.volley.VolleyError
 import com.example.vinyls.model.network.NetworkServiceAdapter
+import org.json.JSONObject
 
 class ArtistRepository (val application: Application){
-    fun refreshData(callback: (List<Artist>)->Unit, onError: (VolleyError)->Unit) {
-        NetworkServiceAdapter.getInstance(application).getArtists({
-            callback(it)
-        },
-            onError
-        )
+    suspend fun refreshData(): List<Artist> {
+        return NetworkServiceAdapter.getInstance(application).getArtists()
+    }
+
+    suspend fun addAlbumToArtist(albumId:Int, artistId:Int){
+        NetworkServiceAdapter.getInstance(application).postAlbumToArtist(albumId, artistId)
+    }
+
+    suspend fun createArtist(body: JSONObject): Artist {
+        return NetworkServiceAdapter.getInstance(application).postArtist(body)
     }
 }

@@ -1,5 +1,6 @@
 package com.example.vinyls.model
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -7,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinyls.R
-import com.example.vinyls.album.AlbumFragmentDirections
 import com.example.vinyls.artist.ArtistFragmentDirections
 import com.example.vinyls.databinding.ArtistItemBinding
 import com.squareup.picasso.Picasso
@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso
 class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>(){
 
     var artists :List<Artist> = emptyList()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -36,8 +37,7 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>(){
                 .into(it.imageView);
         }
         holder.viewDataBinding.root.setOnClickListener {
-            val action = ArtistFragmentDirections.actionArtistFragmentToArtistDetailFragment(artists[position].artistId)
-            // Navigate using that action
+            val action = ArtistFragmentDirections.actionArtistFragmentToArtistDetailFragment(artists[position].id)
             holder.viewDataBinding.root.findNavController().navigate(action)
         }
     }

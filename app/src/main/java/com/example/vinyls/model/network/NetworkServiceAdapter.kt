@@ -1,27 +1,21 @@
 package com.example.vinyls.model.network
 
 import android.content.Context
-
-import org.json.JSONObject
-
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.vinyls.model.AlbumDBDao
-
-import com.google.gson.Gson
-import com.example.vinyls.model.Artist
-
-import org.json.JSONArray
-
 import com.example.vinyls.model.AlbumDetail
+import com.example.vinyls.model.Artist
 import com.example.vinyls.model.ArtistDetail
-import com.example.vinyls.model.Track
-
+import com.google.gson.Gson
+import org.json.JSONObject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 
 class NetworkServiceAdapter constructor(context: Context) {
@@ -40,165 +34,103 @@ class NetworkServiceAdapter constructor(context: Context) {
         Volley.newRequestQueue(context.applicationContext)
     }
 
-    fun getAlbums(
-        onComplete: (resp: List<AlbumDBDao>) -> Unit,
-        onError: (error: VolleyError) -> Unit
-    ) {
+    suspend fun getAlbums() = suspendCoroutine { cont->
         requestQueue.add(
             getRequest("albums",
                 { response ->
-                    val resp = JSONArray(response)
-                    val list = mutableListOf<AlbumDBDao>()
-                    for (i in 0 until resp.length()) {
-                        val item = resp.getJSONObject(i)
-                        list.add(
-                            i,
-                            AlbumDBDao(
-                                id = item.getInt("id"),
-                                name = item.getString("name"),
-                                cover = item.getString("cover"),
-                                recordLabel = item.getString("recordLabel"),
-                                releaseDate = item.getString("releaseDate"),
-                                genre = item.getString("genre"),
-                                description = item.getString("description")
-                            )
-                        )
-                    }
-                    onComplete(list)
+                    val arrayAlbumDBDao: Array<AlbumDBDao> = Gson().fromJson(response, Array<AlbumDBDao>::class.java)
+                    cont.resume(arrayAlbumDBDao.asList())
                 },
+
                 {
-                    onError(it)
-                })
-        )
+                    cont.resumeWithException(it)
+                }))
     }
 
-    fun postAlbum(
-        onComplete: (AlbumDBDao) -> Unit,
-        onError: (error: VolleyError) -> Unit,
-        body: JSONObject
-    ) {
+    suspend fun postAlbum(body: JSONObject) = suspendCoroutine<AlbumDBDao>{ cont->
         requestQueue.add(
             postRequest("albums",
                 body,
                 { response ->
                     val albumResponse = Gson().fromJson(response.toString(), AlbumDBDao::class.java)
-                    onComplete(albumResponse)
-                },
-                {
-                    onError(it)
-                })
-        )
+                    cont.resume(albumResponse)
+                }
+            ) {
+                cont.resumeWithException(it)
+            })
     }
 
-
-    fun getArtists(
-        onComplete: (resp: List<Artist>) -> Unit,
-        onError: (error: VolleyError) -> Unit
-    ) {
+    suspend fun getArtists() = suspendCoroutine{ cont->
         requestQueue.add(
             getRequest("musicians",
                 { response ->
-                    val resp = JSONArray(response)
-                    val list = mutableListOf<Artist>()
-                    for (i in 0 until resp.length()) {
-                        val item = resp.getJSONObject(i)
-                        list.add(
-                            i, Artist(
-                                artistId = item.getInt("id"),
-                                name = item.getString("name"),
-                                image = item.getString("image"),
-                                birthDate = item.getString("birthDate"),
-                                description = item.getString("description")
-                            )
-                        )
-                    }
-                    onComplete(list)
+                    val arrayArtist: Array<Artist> = Gson().fromJson(response, Array<Artist>::class.java)
+                    cont.resume(arrayArtist.asList())
                 },
                 {
-                    onError(it)
-                })
-        )
+                    cont.resumeWithException(it)
+                }))
     }
 
-    fun getArtistDetail(artistId:Int, onComplete:(resp:List<ArtistDetail>)->Unit, onError: (error:VolleyError)->Unit){
+    suspend fun postArtist(body: JSONObject) = suspendCoroutine<Artist>{ cont->
+        requestQueue.add(
+            postRequest("musicians",
+                body,
+                { response ->
+                    val artistResponse = Gson().fromJson(response.toString(), Artist::class.java)
+                    cont.resume(artistResponse)
+                },
+                {
+                    cont.resumeWithException(it)
+                }))
+    }
+
+    suspend fun getArtistDetail(artistId:Int) = suspendCoroutine<List<ArtistDetail>>{ cont->
         requestQueue.add(getRequest("musicians/$artistId",
             { response ->
-                val resp = JSONObject(response)
-                val list = mutableListOf<ArtistDetail>()
-                val item: JSONObject = resp
-
-                val albumsArray = item.getJSONArray("albums")
-                val albums = mutableListOf<AlbumDBDao>()
-                for (i in 0 until albumsArray.length()) {
-                    val trackObject = albumsArray.getJSONObject(i)
-                    val track = AlbumDBDao(
-                        id = trackObject.getInt("id"),
-                        name = trackObject.getString("name"),
-                        cover = trackObject.getString("cover"),
-                        recordLabel = item.getString("name"),
-                        releaseDate = item.getString("name"),
-                        genre = item.getString("name"),
-                        description = item.getString("description"))
-                    albums.add(track)
-                }
-
-                val fullDate = item.getString("birthDate")
-                val shortDate = fullDate.substring(0, 10)
-
-                list.add(0, ArtistDetail(
-                    artistId = item.getInt("id"),
-                    name = item.getString("name"),
-                    image = item.getString("image"),
-                    birthDate = shortDate,
-                    description = item.getString("description"),
-                    albums = albums
-                ))
-                onComplete(list)
+                val artistDetail = Gson().fromJson(response, ArtistDetail::class.java)
+                cont.resume(listOf(artistDetail))
             },
             {
-                onError(it)
+                cont.resumeWithException(it)
             }))
     }
 
-    fun getAlbumDetail(albumId:Int, onComplete:(resp:List<AlbumDetail>)->Unit, onError: (error:VolleyError)->Unit){
+    suspend fun postTracksToAlbum(albumId:Int, body:JSONObject) = suspendCoroutine<Any> { cont ->
+        requestQueue.add(
+            postRequest(String.format("albums/%s/tracks", albumId), body,
+                { response ->
+                    val addedResponse = Gson().fromJson(response.toString(), Any::class.java)
+                    cont.resume(addedResponse)
+                }
+            ) {
+                cont.resumeWithException(it)
+            }
+        )
+    }
+
+    suspend fun postAlbumToArtist(albumId:Int, artistId:Int) = suspendCoroutine<Any> { cont ->
+        requestQueue.add(
+            postRequest(String.format("musicians/%s/albums/%s", artistId, albumId), null,
+                { response ->
+                    val addedResponse = Gson().fromJson(response.toString(), Any::class.java)
+                    cont.resume(addedResponse)
+                }
+            ) {
+                cont.resumeWithException(it)
+            }
+        )
+    }
+
+    suspend fun getAlbumDetail(albumId:Int) = suspendCoroutine<List<AlbumDetail>>{ cont->
         requestQueue.add(getRequest("albums/$albumId",
             { response ->
-                val resp = JSONObject(response)
-                val list = mutableListOf<AlbumDetail>()
-                val item: JSONObject = resp
-
-                val tracksArray = item.getJSONArray("tracks")
-                val tracks = mutableListOf<Track>()
-
-                for (i in 0 until tracksArray.length()) {
-                    val trackObject = tracksArray.getJSONObject(i)
-                    val track = Track(
-                        trackId = trackObject.getInt("id"),
-                        name = trackObject.getString("name"),
-                        duration = trackObject.getString("duration")
-                    )
-                    tracks.add(track)
-                }
-
-                val fechaCompleta = item.getString("releaseDate")
-                val fecha = fechaCompleta.substring(0, 10)
-
-                list.add(0, AlbumDetail(
-                    albumId = item.getInt("id"),
-                    name = item.getString("name"),
-                    cover = item.getString("cover"),
-                    recordLabel = item.getString("recordLabel"),
-                    releaseDate = fecha,
-                    genre = item.getString("genre"),
-                    description = item.getString("description"),
-                    tracks = tracks
-                ))
-                onComplete(list)
+                val albumDetail = Gson().fromJson(response, AlbumDetail::class.java)
+                cont.resume(listOf(albumDetail))
             },
             {
-                onError(it)
-            }
-        ))
+                cont.resumeWithException(it)
+            }))
     }
 
     private fun getRequest(
@@ -211,27 +143,12 @@ class NetworkServiceAdapter constructor(context: Context) {
 
     private fun postRequest(
         path: String,
-        body: JSONObject,
+        body: JSONObject?,
         responseListener: Response.Listener<JSONObject>,
         errorListener: Response.ErrorListener
     ): JsonObjectRequest {
         return JsonObjectRequest(
             Request.Method.POST,
-            BASE_URL + path,
-            body,
-            responseListener,
-            errorListener
-        )
-    }
-
-    private fun putRequest(
-        path: String,
-        body: JSONObject,
-        responseListener: Response.Listener<JSONObject>,
-        errorListener: Response.ErrorListener
-    ): JsonObjectRequest {
-        return JsonObjectRequest(
-            Request.Method.PUT,
             BASE_URL + path,
             body,
             responseListener,
