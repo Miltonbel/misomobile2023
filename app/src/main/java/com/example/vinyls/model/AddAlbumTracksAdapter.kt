@@ -4,18 +4,21 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.vinyls.R
 import com.example.vinyls.album.AddAlbumTracksFragmentDirections
 import com.example.vinyls.databinding.AlbumItemFormBinding
-import com.squareup.picasso.Picasso
 
 class AddAlbumTracksAdapter :
     RecyclerView.Adapter<AddAlbumTracksAdapter.AddAlbumTracksViewHolder>() {
 
-    var album: List<AlbumDBDao> = emptyList()
+    var album: List<Album> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
@@ -39,8 +42,8 @@ class AddAlbumTracksAdapter :
     override fun onBindViewHolder(holder: AddAlbumTracksViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.albumTrackFormText.text = album[position].name
-            Picasso.get().load(album[position].cover).resize(450, 450)
-                .into(it.albumTrackFormImage)
+            holder.bind(album[position])
+
             it.albumTrackFormImage.clipToOutline = true
 
             holder.viewDataBinding.root.setOnClickListener {
@@ -56,6 +59,17 @@ class AddAlbumTracksAdapter :
         companion object {
             @LayoutRes
             val LAYOUT = R.layout.album_item_form
+        }
+        fun bind(album: Album) {
+            Glide.with(itemView)
+                .load(album.cover.toUri().buildUpon().scheme("https").build())
+                .apply(
+                    RequestOptions()
+                        .placeholder(R.drawable.loading_animation)
+                        .override(450, 450)
+                        .error(R.drawable.ic_broken_image)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL))
+                .into(viewDataBinding.albumTrackFormImage)
         }
     }
 
