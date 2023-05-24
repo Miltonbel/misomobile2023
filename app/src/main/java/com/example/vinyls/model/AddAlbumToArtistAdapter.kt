@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.vinyls.R
 import com.example.vinyls.artist.AddAlbumToArtistFragmentDirections
 import com.example.vinyls.databinding.ArtistItemFormBinding
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 
 class AddAlbumToArtistAdapter :
@@ -40,6 +42,8 @@ class AddAlbumToArtistAdapter :
         holder.viewDataBinding.also {
             it.albumToArtistFormText.text = artist[position].name
             Picasso.get().load(artist[position].image).resize(450, 450)
+                .memoryPolicy(MemoryPolicy.NO_STORE)
+                .networkPolicy(NetworkPolicy.OFFLINE)
                 .into(it.albumToArtistFormImage)
             it.albumToArtistFormImage.clipToOutline = true
             it.artistDetail = artist[position]

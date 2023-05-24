@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.vinyls.R
 import com.example.vinyls.album.AddAlbumTracksFragmentDirections
 import com.example.vinyls.databinding.AlbumItemFormBinding
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 
 class AddAlbumTracksAdapter :
@@ -40,6 +42,8 @@ class AddAlbumTracksAdapter :
         holder.viewDataBinding.also {
             it.albumTrackFormText.text = album[position].name
             Picasso.get().load(album[position].cover).resize(450, 450)
+                .memoryPolicy(MemoryPolicy.NO_STORE)
+                .networkPolicy(NetworkPolicy.OFFLINE)
                 .into(it.albumTrackFormImage)
             it.albumTrackFormImage.clipToOutline = true
 

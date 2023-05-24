@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.vinyls.R
 import com.example.vinyls.artist.ArtistFragmentDirections
 import com.example.vinyls.databinding.ArtistItemBinding
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 
 class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>(){
@@ -34,6 +36,8 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>(){
         holder.viewDataBinding.also {
             it.artist = artists[position]
             Picasso.get().load(artists[position].image).resize(1000, 1000)
+                .memoryPolicy(MemoryPolicy.NO_STORE)
+                .networkPolicy(NetworkPolicy.OFFLINE)
                 .into(it.imageView);
         }
         holder.viewDataBinding.root.setOnClickListener {
