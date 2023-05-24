@@ -7,8 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.vinyls.model.AlbumDBDao
+import com.example.vinyls.model.Album
 import com.example.vinyls.model.AlbumRepository
+import com.example.vinyls.model.database.VinylRoomDatabase
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,9 +18,9 @@ import org.json.JSONObject
 
 class AlbumViewModel(application: Application) :  AndroidViewModel(application) {
 
-    private val _albums = MutableLiveData<List<AlbumDBDao>>()
+    private val _albums = MutableLiveData<List<Album>>()
 
-    val albums: LiveData<List<AlbumDBDao>>
+    val albums: LiveData<List<Album>>
         get() = _albums
 
     private var _eventNetworkError = MutableLiveData<Boolean>(false)
@@ -31,7 +32,7 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
 
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
-    private val albumRepository = AlbumRepository(application)
+    private val albumRepository = AlbumRepository(application, VinylRoomDatabase.getDatabase(application.applicationContext).albumsDao())
     init {
         refreshDataFromNetwork()
     }

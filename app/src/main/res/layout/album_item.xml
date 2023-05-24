@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="album" type="com.example.vinyls.model.AlbumDBDao"/>
+        <variable name="album" type="com.example.vinyls.model.Album"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

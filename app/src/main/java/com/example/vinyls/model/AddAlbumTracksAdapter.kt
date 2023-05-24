@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso
 class AddAlbumTracksAdapter :
     RecyclerView.Adapter<AddAlbumTracksAdapter.AddAlbumTracksViewHolder>() {
 
-    var album: List<AlbumDBDao> = emptyList()
+    var album: List<Album> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
