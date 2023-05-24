@@ -25,8 +25,13 @@ import com.example.vinyls.model.Track
 
 
 class NetworkServiceAdapter constructor(context: Context) {
+<<<<<<< Updated upstream
     companion object{
         const val BASE_URL= "http://10.0.2.2:3000/"
+=======
+    companion object {
+        const val BASE_URL = "http://10.0.2.2/"
+>>>>>>> Stashed changes
         var instance: NetworkServiceAdapter? = null
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
