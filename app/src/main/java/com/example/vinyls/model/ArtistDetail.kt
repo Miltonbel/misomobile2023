@@ -6,5 +6,5 @@ data class ArtistDetail(
     val image:String,
     val description:String,
     val birthDate:String,
-    val albums:List<AlbumDBDao>
+    val albums:List<Album>
 )
