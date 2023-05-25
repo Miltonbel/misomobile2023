@@ -4,7 +4,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Vynils App</string>
     <string name="nav_header_subtitle">UniAndes</string>
-    <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
     <string name="add_album">Crear Album</string>
@@ -52,11 +51,18 @@
     <string name="artist_detail_albums">Albumes</string>
     <string name="detail_artist">Detalle artista</string>
     <string name="create_album">Crear</string>
-    <string name="cover_album_form">Caratula del album</string>
+
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="artists">Artistas</string>
     <string name="albums">Albumes</string>
     <string name="selectartist">Seleccione un artista</string>
     <string name="selctalbum">Seleccione un album</string>
+
+    <!-- content description -->
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="image_album_detail_desc">Portada del album</string>
+    <string name="image_artist_detail_desc">Imagen de artista</string>
+    <string name="cover_album_form_desc">Caratula del album</string>
+    <string name="track_item_desc">Imagen fondo canciones</string>
 </resources>

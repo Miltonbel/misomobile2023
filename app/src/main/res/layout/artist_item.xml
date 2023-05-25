@@ -35,7 +35,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitCenter"
-                         />
+                        android:contentDescription="@string/image_artist_detail_desc" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
