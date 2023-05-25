@@ -114,6 +114,7 @@ class AddAlbumToArtistTest {
 
         onView(withId(R.id.album_to_artist_form_text))
             .check(matches(withText("Canserbero")))
+            .perform(click())
 
         onView(withId(R.id.album_track_form_text))
             .check(matches(withText("Muerte")))
