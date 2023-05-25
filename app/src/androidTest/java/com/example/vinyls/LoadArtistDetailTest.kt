@@ -3,9 +3,11 @@ package com.example.vinyls
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.*
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -14,6 +16,7 @@ import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.notNullValue
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 import org.junit.Test
@@ -78,7 +81,7 @@ class LoadArtistDetailTest {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("Artist"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText("Artista1"), closeSoftKeyboard())
 
         val appCompatEditText2 = onView(
             allOf(
@@ -93,10 +96,7 @@ class LoadArtistDetailTest {
                 isDisplayed()
             )
         )
-        appCompatEditText2.perform(
-            replaceText("https://meet.google.com/cwi-rswn-wtm"),
-            closeSoftKeyboard()
-        )
+        appCompatEditText2.perform(replaceText("https://t.ly/brlTK"), closeSoftKeyboard())
 
         val appCompatEditText3 = onView(
             allOf(
@@ -140,7 +140,7 @@ class LoadArtistDetailTest {
                 isDisplayed()
             )
         )
-        appCompatEditText4.perform(replaceText("h"), closeSoftKeyboard())
+        appCompatEditText4.perform(replaceText("test"), closeSoftKeyboard())
 
         val materialButton2 = onView(
             allOf(
@@ -159,30 +159,66 @@ class LoadArtistDetailTest {
 
         val textView = onView(
             allOf(
-                withId(R.id.album_detail_name), withText("Artist"),
+                withId(R.id.album_detail_name), withText("Artista1"),
                 withParent(withParent(withId(R.id.artist_detail_rv))),
                 isDisplayed()
             )
         )
-        textView.check(matches(withText("Artist")))
-
-        val textView2 = onView(
-            allOf(
-                withId(R.id.album_detail_details), withText("2023-05-23T00:00:00.000Z"),
-                withParent(withParent(withId(R.id.artist_detail_rv))),
-                isDisplayed()
-            )
-        )
-        textView2.check(matches(withText("2023-05-23T00:00:00.000Z")))
+        textView.check(matches(withText("Artista1")))
 
         val textView3 = onView(
             allOf(
-                withId(R.id.album_detail_description), withText("h"),
+                withId(R.id.album_detail_description), withText("test"),
                 withParent(withParent(withId(R.id.artist_detail_rv))),
                 isDisplayed()
             )
         )
-        textView3.check(matches(withText("h")))
+        textView3.check(matches(withText("test")))
+
+        val bottomNavigationItemView = onView(
+            allOf(
+                withId(R.id.nav_list_artist), withContentDescription("Artistas"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.bottom_nav),
+                        0
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        bottomNavigationItemView.perform(click())
+
+        val recyclerView = onView(
+            allOf(
+                withId(R.id.artistRv),
+                childAtPosition(
+                    withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
+                    0
+                )
+            )
+        )
+        recyclerView.perform(actionOnItemAtPosition<ViewHolder>(0, click()))
+
+        val textView4 = onView(
+            allOf(
+                withId(R.id.album_detail_name), withText("Artista1"),
+                withParent(withParent(withId(R.id.artist_detail_rv))),
+                isDisplayed()
+            )
+        )
+        textView4.check(matches(withText("Artista1")))
+
+
+        val textView6 = onView(
+            allOf(
+                withId(R.id.album_detail_description), withText("test"),
+                withParent(withParent(withId(R.id.artist_detail_rv))),
+                isDisplayed()
+            )
+        )
+        textView6.check(matches(withText("test")))
     }
 
     private fun childAtPosition(

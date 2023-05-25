@@ -9,6 +9,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.*
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
+import androidx.test.espresso.matcher.RootMatchers.isPlatformPopup
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -65,12 +66,7 @@ class LoadAlbumToArtistTest {
         appCompatSpinner.perform(click())
 
         val appCompatCheckedTextView = onData(anything())
-            .inAdapterView(
-                childAtPosition(
-                    withClassName(`is`("android.widget.PopupWindow$PopupBackgroundView")),
-                    0
-                )
-            )
+            .inRoot(isPlatformPopup())
             .atPosition(2)
         appCompatCheckedTextView.perform(click())
 
@@ -137,12 +133,7 @@ class LoadAlbumToArtistTest {
         appCompatSpinner2.perform(click())
 
         val appCompatCheckedTextView2 = onData(anything())
-            .inAdapterView(
-                childAtPosition(
-                    withClassName(`is`("android.widget.PopupWindow$PopupBackgroundView")),
-                    0
-                )
-            )
+            .inRoot(isPlatformPopup())
             .atPosition(2)
         appCompatCheckedTextView2.perform(click())
 
