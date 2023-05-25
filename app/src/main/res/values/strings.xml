@@ -30,6 +30,7 @@
     <string name="add_track_tittle">Ingresa \n la canción</string>
     <string name="add_track_timer">Duración</string>
     <string name="add_album_tracks_form">Canción</string>
+    <string name="album_detail">Detalle album</string>
 
     <string-array name="genres">
         <item>Classical</item>
