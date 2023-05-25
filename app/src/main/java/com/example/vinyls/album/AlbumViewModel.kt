@@ -6,14 +6,21 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.vinyls.model.AlbumDBDao
+import androidx.lifecycle.viewModelScope
+import com.example.vinyls.model.Album
 import com.example.vinyls.model.AlbumRepository
+import com.example.vinyls.model.database.VinylRoomDatabase
+import kotlinx.coroutines.CoroutineScope
+
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AlbumViewModel(application: Application) :  AndroidViewModel(application) {
 
-    private val _albums = MutableLiveData<List<AlbumDBDao>>()
+    private val _albums = MutableLiveData<List<Album>>()
 
-    val albums: LiveData<List<AlbumDBDao>>
+    val albums: LiveData<List<Album>>
         get() = _albums
 
     private var _eventNetworkError = MutableLiveData<Boolean>(false)
@@ -25,19 +32,34 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
 
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
-    private val albumRepository = AlbumRepository(application)
+    val internalApp = application
+    private val albumRepository = AlbumRepository(application, VinylRoomDatabase.getDatabase(application.applicationContext).albumsDao())
     init {
+        CoroutineScope(Dispatchers.IO).launch {
+            clean()
+        }
+
         refreshDataFromNetwork()
     }
 
+    private suspend fun clean(){
+        VinylRoomDatabase.getDatabase(internalApp.applicationContext).albumsDao().deleteAll()
+    }
+
     private fun refreshDataFromNetwork() {
-        albumRepository.refreshData({
-            _albums.postValue(it)
-            _eventNetworkError.value = false
-            _isNetworkErrorShown.value = false
-        },{
+        try {
+            viewModelScope.launch(Dispatchers.Default){
+                withContext(Dispatchers.IO){
+                    val data = albumRepository.refreshData()
+                    _albums.postValue(data)
+                }
+                _eventNetworkError.postValue(false)
+                _isNetworkErrorShown.postValue(false)
+            }
+        }
+        catch (e:Exception){
             _eventNetworkError.value = true
-        })
+        }
     }
 
     fun onNetworkErrorShown() {

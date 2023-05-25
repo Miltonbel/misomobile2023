@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinyls.databinding.FragmentAlbumBinding
-import com.example.vinyls.model.AlbumDBDao
+import com.example.vinyls.model.Album
 import com.example.vinyls.model.AlbumsAdapter
 
 class AlbumFragment : Fragment() {
@@ -25,7 +25,7 @@ class AlbumFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAlbumBinding.inflate(inflater, container, false)
         val view = binding.root
 
@@ -33,27 +33,17 @@ class AlbumFragment : Fragment() {
         return view
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView = binding.albumsRv
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = viewModelAdapter
-    }
-    //val activity = requireNotNull(this.activity) {
-    //   "You can only access the viewModel after onActivityCreated()"
-    //}
-    //activity.actionBar?.title = getString(R.string.title_albums)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
-        //activity.actionBar?.title = getString(R.string.title_albums)
         viewModel = ViewModelProvider(this, AlbumViewModel.Factory(activity.application)).get(
             AlbumViewModel::class.java)
-        viewModel.albums.observe(viewLifecycleOwner, Observer<List<AlbumDBDao>> {
+        viewModel.albums.observe(viewLifecycleOwner, Observer<List<Album>> {
             it.apply {
                 viewModelAdapter!!.albums = this
             }

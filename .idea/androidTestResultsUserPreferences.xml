@@ -71,6 +71,19 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="28629151">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_5_API_33" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="235454247">
           <value>
             <AndroidTestResultsTableState>
@@ -171,6 +184,20 @@
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_5_API_33" value="120" />
                   <entry key="Tests" value="360" />
+                  <entry key="motorola&#10; moto g(8) plus" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1820536859">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="ZY2276JS3B" value="120" />
                   <entry key="motorola&#10; moto g(8) plus" value="120" />
                 </map>
               </option>
