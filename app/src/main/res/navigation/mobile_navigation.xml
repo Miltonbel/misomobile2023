@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/albumDetailFragment"
         android:name="com.example.vinyls.album.AlbumDetailFragment"
-        android:label="Detalle album"
+        android:label="@string/album_detail"
         tools:layout="@layout/album_detail_fragment" >
         <argument
             android:name="albumId"
@@ -59,7 +59,7 @@
     <fragment
         android:id="@+id/nav_add_album_to_artist"
         android:name="com.example.vinyls.artist.AddAlbumToArtistFragment"
-        android:label="Agregar album a artista"
+        android:label="@string/add_album_to_artist"
         tools:layout="@layout/fragment_add_album_to_artist">
         <argument
             android:name="artistId"
@@ -108,7 +108,7 @@
     <fragment
         android:id="@+id/add_albums_to_artist_form"
         android:name="com.example.vinyls.artist.AddAlbumToArtistFormFragment"
-        android:label="Agregar album a artista"
+        android:label="@string/add_album_to_artist"
         tools:layout="@layout/fragment_add_albums_to_artist_form">
         <argument
             android:name="artistId"
