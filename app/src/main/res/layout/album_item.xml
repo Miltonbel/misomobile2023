@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="album" type="com.example.vinyls.model.AlbumDBDao"/>
+        <variable name="album" type="com.example.vinyls.model.Album"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +35,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitCenter"
-                        android:src="@{album.cover}" />
+                         />
 
                     <RelativeLayout
                         android:layout_width="match_parent"

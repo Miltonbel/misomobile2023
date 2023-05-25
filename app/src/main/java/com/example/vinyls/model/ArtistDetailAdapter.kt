@@ -4,12 +4,15 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.vinyls.R
 import com.example.vinyls.databinding.ArtistDetailItemBinding
-import com.squareup.picasso.Picasso
 
 
 class ArtistDetailAdapter : RecyclerView.Adapter<ArtistDetailAdapter.ArtistDetailViewHolder>(){
@@ -33,8 +36,7 @@ class ArtistDetailAdapter : RecyclerView.Adapter<ArtistDetailAdapter.ArtistDetai
     override fun onBindViewHolder(holder: ArtistDetailViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.artistDetail = artist[position]
-            Picasso.get().load(artist[position].image).resize(450, 450)
-                .into(it.imageView)
+            holder.bind(artist[position])
             it.imageView.clipToOutline = true
 
             val tracksRecyclerView = it.tracksRecyclerView
@@ -59,6 +61,17 @@ class ArtistDetailAdapter : RecyclerView.Adapter<ArtistDetailAdapter.ArtistDetai
         companion object {
             @LayoutRes
             val LAYOUT = R.layout.artist_detail_item
+        }
+        fun bind(artist: ArtistDetail) {
+            Glide.with(itemView)
+                .load(artist.image.toUri().buildUpon().scheme("https").build())
+                .apply(
+                    RequestOptions()
+                        .placeholder(R.drawable.loading_animation)
+                        .override(450, 450)
+                        .error(R.drawable.ic_broken_image)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL))
+                .into(viewDataBinding.imageView)
         }
     }
 }

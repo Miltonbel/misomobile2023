@@ -7,7 +7,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.vinyls.model.AlbumDBDao
+import com.example.vinyls.model.Album
 import com.example.vinyls.model.AlbumDetail
 import com.example.vinyls.model.Artist
 import com.example.vinyls.model.ArtistDetail
@@ -38,8 +38,8 @@ class NetworkServiceAdapter constructor(context: Context) {
         requestQueue.add(
             getRequest("albums",
                 { response ->
-                    val arrayAlbumDBDao: Array<AlbumDBDao> = Gson().fromJson(response, Array<AlbumDBDao>::class.java)
-                    cont.resume(arrayAlbumDBDao.asList())
+                    val arrayAlbum: Array<Album> = Gson().fromJson(response, Array<Album>::class.java)
+                    cont.resume(arrayAlbum.asList())
                 },
 
                 {
@@ -47,12 +47,12 @@ class NetworkServiceAdapter constructor(context: Context) {
                 }))
     }
 
-    suspend fun postAlbum(body: JSONObject) = suspendCoroutine<AlbumDBDao>{ cont->
+    suspend fun postAlbum(body: JSONObject) = suspendCoroutine<Album>{ cont->
         requestQueue.add(
             postRequest("albums",
                 body,
                 { response ->
-                    val albumResponse = Gson().fromJson(response.toString(), AlbumDBDao::class.java)
+                    val albumResponse = Gson().fromJson(response.toString(), Album::class.java)
                     cont.resume(albumResponse)
                 }
             ) {

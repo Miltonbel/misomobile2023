@@ -6,13 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.vinyls.model.ArtistRepository
+import com.example.vinyls.model.database.VinylRoomDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class AddAlbumToArtistFormViewModel(application: Application) :  AndroidViewModel(application) {
 
-    private val artistRepository = ArtistRepository(application)
+    private val artistRepository = ArtistRepository(application, VinylRoomDatabase.getDatabase(application.applicationContext).artistsDao())
 
     class Factory(val app: Application, val artistId: String) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
