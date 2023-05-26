@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">vinyls</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Vynils App</string>
+    <string name="nav_header_subtitle">UniAndes</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="add_album">Create album</string>
+    <string name="add_artist">Create artist</string>
+    <string name="add_album_tracks">Add track to album</string>
+    <string name="add_album_to_artist">Add album to artist</string>
+    <string name="artist_list">Artists</string>
+    <string name="albums_list">Albums</string>
+
+    <string name="new_artist_title">Vinyls app \n Add new artist</string>
+    <string name="new_artist_name">Name</string>
+    <string name="new_artist_image">Image</string>
+    <string name="new_artist_birthday">Birthday</string>
+    <string name="new_artist_description">Description</string>
+    <!-- FORMS -->
+    <string name="new_album_title">Vinyls app \n add new Album</string>
+    <string name="new_album_name">Name</string>
+    <string name="new_album_genre">Genre</string>
+    <string name="new_album_cover">Cover</string>
+    <string name="new_album_release">Release date</string>
+    <string name="new_album_label">Label</string>
+    <string name="new_album_description">Description</string>
+    <string name="add_album_track_tittle">Select \n an album</string>
+    <string name="add_track_tittle">Add \n track</string>
+    <string name="add_track_timer">Time</string>
+    <string name="add_album_tracks_form">Song</string>
+    <string name="album_detail">Album detail</string>
+
+    <string-array name="genres">
+        <item>Classical</item>
+        <item>Salsa</item>
+        <item>Rock</item>
+        <item>Folk</item>
+    </string-array>
+
+    <string-array name="labels">
+        <item>Sony Music</item>
+        <item>EMI</item>
+        <item>Discos Fuentes</item>
+        <item>Elektra</item>
+        <item>Fania Records</item>
+    </string-array>
+
+
+    <string name="songs">Songs</string>
+    <string name="artist_detail_albums">Albums</string>
+    <string name="detail_artist">Artists detail</string>
+    <string name="create_album">Create</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="artists">Artists</string>
+    <string name="albums">Albums</string>
+    <string name="selectartist">Check some artist</string>
+    <string name="selctalbum">Check some album</string>
+
+    <!-- content description -->
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="image_album_detail_desc">Album detail cover</string>
+    <string name="image_artist_detail_desc">Artist image</string>
+    <string name="cover_album_form_desc">album cover</string>
+    <string name="track_item_desc">background song image</string>
+</resources>
