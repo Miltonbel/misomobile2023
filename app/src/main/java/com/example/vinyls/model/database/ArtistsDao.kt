@@ -15,5 +15,5 @@ interface ArtistsDao {
     fun insert(artist: Artist)
 
     @Query("DELETE FROM artists_table")
-    fun deleteAll()
+    fun deleteAll(): Int
 }
