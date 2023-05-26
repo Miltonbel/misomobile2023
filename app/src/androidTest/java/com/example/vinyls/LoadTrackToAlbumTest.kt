@@ -78,9 +78,15 @@ class LoadTrackToAlbumTest {
 
         onView(withId(R.id.nav_add_album_tracks)).perform(click())
 
-        onView(withId(R.id.album_item_name))
+        onView(withId(R.id.album_track_form_text))
             .check(matches(withText("Muerte")))
             .perform(click())
+
+        onView(withId(R.id.new_track_name)).perform(typeText("Y la felicidad que"),
+            closeSoftKeyboard()
+        )
+
+        onView(withId(R.id.new_album_track_button)).perform(click())
     }
 
     private fun childAtPosition(parentMatcher: Matcher<View>, position: Int): Matcher<View> {
