@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.vinyls.model.Artist
 import com.example.vinyls.model.ArtistRepository
 import com.example.vinyls.model.database.VinylRoomDatabase
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -29,8 +30,17 @@ class AddAlbumToArtistViewModel(application: Application) :  AndroidViewModel(ap
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
     private val artistRepository = ArtistRepository(application, VinylRoomDatabase.getDatabase(application.applicationContext).artistsDao())
+    private val internalApp = application
     init {
+        CoroutineScope(Dispatchers.IO).launch {
+            clean()
+        }
+
         refreshAlbumsFromNetwork()
+    }
+
+    private suspend fun clean(){
+        VinylRoomDatabase.getDatabase(internalApp.applicationContext).artistsDao().deleteAll()
     }
 
     private fun refreshAlbumsFromNetwork() {
