@@ -16,6 +16,19 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="-1794677178">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_6_Pro_API_33" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="-1732296341">
           <value>
             <AndroidTestResultsTableState>
@@ -23,6 +36,19 @@
                 <map>
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_5_API_33" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-1191913078">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_6_Pro_API_33" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
               </option>
@@ -63,7 +89,9 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="Pixel_3a_API_33_x86_64" value="120" />
                   <entry key="Pixel_5_API_33" value="120" />
+                  <entry key="Pixel_6_Pro_API_33" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
               </option>
@@ -76,7 +104,7 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
-                  <entry key="Pixel_3a_API_33_x86_64" value="120" />
+                  <entry key="Pixel_5_API_33" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
               </option>
@@ -90,6 +118,20 @@
                 <map>
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_5_API_33" value="120" />
+                  <entry key="Pixel_6_Pro_API_33" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="353979913">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_6_Pro_API_33" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
               </option>
@@ -109,6 +151,20 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="569127623">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_3a_API_33_x86_64" value="120" />
+                  <entry key="Pixel_6_Pro_API_33" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="877661685">
           <value>
             <AndroidTestResultsTableState>
@@ -116,6 +172,7 @@
                 <map>
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_5_API_33" value="120" />
+                  <entry key="Pixel_6_Pro_API_33" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
               </option>
@@ -135,6 +192,32 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="1293715304">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_3a_API_33_x86_64" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1405150138">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_6_Pro_API_33" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="1716942794">
           <value>
             <AndroidTestResultsTableState>
@@ -143,6 +226,21 @@
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_5_API_33" value="120" />
                   <entry key="Tests" value="360" />
+                  <entry key="motorola&#10; moto g(8) plus" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1820536859">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_6_Pro_API_33" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="ZY2276JS3B" value="120" />
                   <entry key="motorola&#10; moto g(8) plus" value="120" />
                 </map>
               </option>

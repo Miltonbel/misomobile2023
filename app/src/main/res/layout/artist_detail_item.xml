@@ -106,7 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text='@{artist_detail.birthDate}'
+            android:text='@{artist_detail.birthDate.substring(0,10)}'
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="@color/black"
