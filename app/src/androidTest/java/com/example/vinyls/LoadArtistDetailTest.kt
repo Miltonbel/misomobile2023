@@ -1,230 +1,82 @@
 package com.example.vinyls
 
 
-import android.view.View
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.*
-import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.LargeTest
-import org.hamcrest.Description
-import org.hamcrest.Matcher
-import org.hamcrest.Matchers.allOf
-import org.hamcrest.Matchers.`is`
-import org.hamcrest.Matchers.notNullValue
-import org.hamcrest.TypeSafeMatcher
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+import org.hamcrest.CoreMatchers
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import android.view.View
+import android.view.ViewGroup
+import org.hamcrest.Description
+import org.hamcrest.Matcher
+import org.hamcrest.Matchers.allOf
+import org.hamcrest.TypeSafeMatcher
+import org.junit.FixMethodOrder
+import org.junit.runners.MethodSorters
 
-@LargeTest
-@RunWith(AndroidJUnit4::class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@RunWith(AndroidJUnit4ClassRunner::class)
 class LoadArtistDetailTest {
 
-    @Rule
-    @JvmField
-    var mActivityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
+    @get:Rule var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun loadArtistDetailTest() {
-        val appCompatImageButton = onView(
-            allOf(
-                withContentDescription("Open navigation drawer"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.toolbar),
-                        childAtPosition(
-                            withId(R.id.hamburger_menu),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatImageButton.perform(click())
+    fun createArtistTest() {
+        onView(allOf(withContentDescription("Abrir panel lateral de navegación"),
+            childAtPosition(allOf(withId(R.id.toolbar),childAtPosition(
+                withId(R.id.hamburger_menu),0)),1),
+            isDisplayed())
+        ).perform(click())
 
-        val navigationMenuItemView = onView(
-            allOf(
-                withId(R.id.nav_add_artist),
-                childAtPosition(
-                    allOf(
-                        withId(com.google.android.material.R.id.design_navigation_view),
-                        childAtPosition(
-                            withId(R.id.nav_view),
-                            0
-                        )
-                    ),
-                    2
-                ),
-                isDisplayed()
-            )
-        )
-        navigationMenuItemView.perform(click())
+        onView(withId(R.id.nav_add_artist)).perform(click())
 
-        val appCompatEditText = onView(
-            allOf(
-                withId(R.id.new_artist_name),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment_content_main),
-                        0
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
+        onView(withId(R.id.new_artist_name)).perform(typeText("Canserbero"),
+            closeSoftKeyboard()
         )
-        appCompatEditText.perform(replaceText("Artista1"), closeSoftKeyboard())
 
-        val appCompatEditText2 = onView(
-            allOf(
-                withId(R.id.new_artist_image),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment_content_main),
-                        0
-                    ),
-                    2
-                ),
-                isDisplayed()
-            )
+        onView(withId(R.id.new_artist_image)).perform(typeText("https://eldiario.com/wp-content/uploads/2023/01/canserbero-2-1.jpg"),
+            closeSoftKeyboard()
         )
-        appCompatEditText2.perform(replaceText("https://t.ly/brlTK"), closeSoftKeyboard())
 
-        val appCompatEditText3 = onView(
-            allOf(
-                withId(R.id.new_artist_birth_date),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment_content_main),
-                        0
-                    ),
-                    3
-                ),
-                isDisplayed()
-            )
+        onView(withId(R.id.new_artist_birth_date)).perform(replaceText("2018-10-12"),
+            closeSoftKeyboard()
         )
-        appCompatEditText3.perform(click())
 
-        val materialButton = onView(
-            allOf(
-                withId(android.R.id.button1), withText("OK"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
-                        0
-                    ),
-                    3
-                )
-            )
+        onView(withId(R.id.new_artist_description)).perform(replaceText("Tirone José González Orama, " +
+                "mejor conocido por su nombre artístico Canserbero,fue un rapero, compositor y activista venezolano"),
+            closeSoftKeyboard()
         )
-        materialButton.perform(scrollTo(), click())
 
-        val appCompatEditText4 = onView(
-            allOf(
-                withId(R.id.new_artist_description),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment_content_main),
-                        0
-                    ),
-                    4
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText4.perform(replaceText("test"), closeSoftKeyboard())
-
-        val materialButton2 = onView(
-            allOf(
-                withId(R.id.new_artist_button), withText("Crear"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment_content_main),
-                        0
-                    ),
-                    5
-                ),
-                isDisplayed()
-            )
-        )
-        materialButton2.perform(click())
-
-        val textView = onView(
-            allOf(
-                withId(R.id.album_detail_name), withText("Artista1"),
-                withParent(withParent(withId(R.id.artist_detail_rv))),
-                isDisplayed()
-            )
-        )
-        textView.check(matches(withText("Artista1")))
-
-        val textView3 = onView(
-            allOf(
-                withId(R.id.album_detail_description), withText("test"),
-                withParent(withParent(withId(R.id.artist_detail_rv))),
-                isDisplayed()
-            )
-        )
-        textView3.check(matches(withText("test")))
-
-        val bottomNavigationItemView = onView(
-            allOf(
-                withId(R.id.nav_list_artist), withContentDescription("Artistas"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.bottom_nav),
-                        0
-                    ),
-                    0
-                ),
-                isDisplayed()
-            )
-        )
-        bottomNavigationItemView.perform(click())
-
-        val recyclerView = onView(
-            allOf(
-                withId(R.id.artistRv),
-                childAtPosition(
-                    withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
-                    0
-                )
-            )
-        )
-        recyclerView.perform(actionOnItemAtPosition<ViewHolder>(0, click()))
-
-        val textView4 = onView(
-            allOf(
-                withId(R.id.album_detail_name), withText("Artista1"),
-                withParent(withParent(withId(R.id.artist_detail_rv))),
-                isDisplayed()
-            )
-        )
-        textView4.check(matches(withText("Artista1")))
-
-
-        val textView6 = onView(
-            allOf(
-                withId(R.id.album_detail_description), withText("test"),
-                withParent(withParent(withId(R.id.artist_detail_rv))),
-                isDisplayed()
-            )
-        )
-        textView6.check(matches(withText("test")))
+        onView(withId(R.id.new_artist_button)).perform(click())
     }
 
-    private fun childAtPosition(
-        parentMatcher: Matcher<View>, position: Int
-    ): Matcher<View> {
+    @Test
+    fun validateListOfAlbumsTest() {
+        onView(withId(R.id.nav_list_artist))
+            .perform(click())
 
+        onView(CoreMatchers.allOf(withParent(withId(R.id.toolbar)), withText("Artistas")))
+            .check(matches(isDisplayed()));
+
+        onView(withText("Canserbero"))
+            .check(matches(isDisplayed()))
+            .perform(click())
+
+        onView(withId(R.id.artist_detail_name))
+            .check(matches(withText("Canserbero")))
+
+        onView(withId(R.id.artist_detail_description))
+            .check(matches(withText("Tirone José González Orama, " +
+                    "mejor conocido por su nombre artístico Canserbero,fue un rapero, compositor y activista venezolano")))
+    }
+
+    private fun childAtPosition(parentMatcher: Matcher<View>, position: Int): Matcher<View> {
         return object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description) {
                 description.appendText("Child at position $position in parent ")

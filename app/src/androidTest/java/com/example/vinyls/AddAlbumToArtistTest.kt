@@ -17,7 +17,6 @@ import android.view.ViewGroup
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
-import org.hamcrest.Matchers.`is`
 import org.hamcrest.TypeSafeMatcher
 
 
@@ -68,13 +67,10 @@ class AddAlbumToArtistTest {
 
     @Test
     fun createArtistTest() {
-        onView(allOf(withContentDescription("Open navigation drawer"),childAtPosition(
-                    allOf(withId(R.id.toolbar), childAtPosition(
-                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
-                            0
-                        )
-                    ), 1), isDisplayed()
-            )
+        onView(allOf(withContentDescription("Abrir panel lateral de navegación"),
+            childAtPosition(allOf(withId(R.id.toolbar),childAtPosition(
+                withId(R.id.hamburger_menu),0)),1),
+            isDisplayed())
         ).perform(click())
 
         onView(withId(R.id.nav_add_artist)).perform(click())
@@ -101,13 +97,10 @@ class AddAlbumToArtistTest {
 
     @Test
     fun addAlbumToArtistTest() {
-        onView(allOf(withContentDescription("Open navigation drawer"),childAtPosition(
-            allOf(withId(R.id.toolbar), childAtPosition(
-                withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
-                0
-            )
-            ), 1), isDisplayed()
-        )
+        onView(allOf(withContentDescription("Abrir panel lateral de navegación"),
+            childAtPosition(allOf(withId(R.id.toolbar),childAtPosition(
+                withId(R.id.hamburger_menu),0)),1),
+            isDisplayed())
         ).perform(click())
 
         onView(withId(R.id.nav_add_album_to_artist)).perform(click())

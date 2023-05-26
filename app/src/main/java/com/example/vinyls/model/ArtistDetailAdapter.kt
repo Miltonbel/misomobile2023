@@ -37,7 +37,7 @@ class ArtistDetailAdapter : RecyclerView.Adapter<ArtistDetailAdapter.ArtistDetai
         holder.viewDataBinding.also {
             it.artistDetail = artist[position]
             holder.bind(artist[position])
-            it.imageView.clipToOutline = true
+            it.artistImageView.clipToOutline = true
 
             val tracksRecyclerView = it.tracksRecyclerView
             val trackAdapter = AlbumsAdapter()
@@ -71,7 +71,7 @@ class ArtistDetailAdapter : RecyclerView.Adapter<ArtistDetailAdapter.ArtistDetai
                         .override(450, 450)
                         .error(R.drawable.ic_broken_image)
                         .diskCacheStrategy(DiskCacheStrategy.ALL))
-                .into(viewDataBinding.imageView)
+                .into(viewDataBinding.artistImageView)
         }
     }
 }
