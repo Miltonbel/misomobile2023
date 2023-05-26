@@ -11,13 +11,14 @@
         android:id="@+id/album_track_form_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
         android:gravity="center"
         android:text="@string/selctalbum"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
-        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,42 +27,25 @@
         android:layout_width="0dp"
         android:layout_height="3dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="#B1B0B0"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/album_track_form_title" >
+        app:layout_constraintTop_toBottomOf="@+id/album_track_form_title">
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_album_tracks"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="parent"
-        android:orientation="horizontal">
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/album_track_form_rl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        tools:context=".artist.AddAlbumToArtistFragment"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frame_separator_1">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_album_tracks"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            tools:listitem="@layout/album_item_form"
-            />
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frame_separator_1"
+        tools:layout_editor_absoluteX="0dp"
+        tools:listitem="@layout/album_item_form" />
 </androidx.constraintlayout.widget.ConstraintLayout>
