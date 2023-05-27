@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="album" type="com.example.vinyls.model.AlbumDBDao"/>
+        <variable name="album" type="com.example.vinyls.model.Album"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +34,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitCenter"
-                        android:src="@{album.cover}" />
+                        android:contentDescription="@string/cover_album_form_desc" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -45,6 +44,7 @@
                         android:background="#4D000000">
 
                         <TextView
+                            android:id="@+id/album_item_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{album.name}"

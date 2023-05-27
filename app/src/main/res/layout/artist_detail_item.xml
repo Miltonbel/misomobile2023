@@ -23,22 +23,24 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.454"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/album_detail_description" />
+            app:layout_constraintTop_toBottomOf="@+id/artist_detail_description" />
 
         <TextView
-            android:id="@+id/album_detail_sogns"
+            android:id="@+id/artist_detail_sogns"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:text="@string/artist_detail_albums"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
+            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
         <TextView
-            android:id="@+id/album_detail_description"
+            android:id="@+id/artist_detail_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -47,6 +49,8 @@
             android:textSize="16sp"
             android:justificationMode="inter_word"
             android:text="@{artist_detail.description}"
+            android:textColor="@color/black"
+            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,23 +68,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.454"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view" />
+            app:layout_constraintTop_toBottomOf="@+id/artist_image_view" />
 
         <ImageView
-            android:id="@+id/image_view"
+            android:id="@+id/artist_image_view"
             android:layout_width="170dp"
             android:layout_height="170dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="24dp"
             android:background="@xml/circle"
             android:scaleType="centerCrop"
-            android:src="@{artist_detail.image}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@tools:sample/avatars"
+            android:contentDescription="@string/image_artist_detail_desc" />
 
         <TextView
-            android:id="@+id/album_detail_name"
+            android:id="@+id/artist_detail_name"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -91,20 +95,24 @@
             android:text="@{artist_detail.name}"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/image_view"
+            android:textColor="@color/black"
+            android:background="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/artist_image_view"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/album_detail_details"
+            android:id="@+id/artist_detail_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text='@{artist_detail.birthDate}'
+            android:text='@{artist_detail.birthDate.substring(0,10)}'
             android:textStyle="bold"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/image_view"
-            app:layout_constraintTop_toBottomOf="@+id/album_detail_name" />
+            android:textColor="@color/black"
+            android:background="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/artist_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/artist_detail_name" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tracksRecyclerView"
@@ -116,6 +124,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/album_detail_sogns" />
+            app:layout_constraintTop_toBottomOf="@+id/artist_detail_sogns" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

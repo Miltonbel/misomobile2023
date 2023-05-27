@@ -7,16 +7,87 @@
     tools:context=".artist.AddArtistFragment">
 
     <TextView
-        android:id="@+id/text_add_artist"
-        android:layout_width="match_parent"
+        android:id="@+id/new_artist_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
+        android:text="@string/new_artist_title"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/black"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/new_artist_name"
+        android:layout_width="164dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="100dp"
+        android:ems="10"
+        android:hint="@string/new_artist_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/new_artist_image"
+        android:layout_width="164dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="156dp"
+        android:ems="10"
+        android:hint="@string/new_artist_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/new_artist_birth_date"
+        android:layout_width="164dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="212dp"
+
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:hint="@string/new_artist_birthday"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/new_artist_description"
+        android:layout_width="330dp"
+        android:layout_height="139dp"
+        android:layout_marginTop="268dp"
+        android:ems="10"
+        android:gravity="top"
+        android:hint="@string/new_artist_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.551"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/new_artist_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="492dp"
+        android:backgroundTint="#00AA00"
+        android:text="@string/create_album"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.425"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
